@@ -21,6 +21,8 @@ class VpsServersManager extends Component
     public $diskUsage = 'N/A';
     public $isLoading = false;
 
+    public $wireguardStatus = 'Unknown';
+    public $wireguardConnectedUsers = 0;
     public $ikev2Status = 'Unknown';
     public $ikev2ConnectedUsers = 0;
 
@@ -79,6 +81,8 @@ HTML;
             $this->diskUsage = "$used / $total ($percent)";
 
             $this->fetchIkev2Status($ssh);
+            $this->fetchWireguardStatus($ssh);
+            $this->fetchConnectedUsers();
 
             $ssh->disconnect();
 
@@ -242,6 +246,17 @@ HTML;
         return $sftp;
     }
 
+    private function fetchWireguardStatus($ssh)
+    {
+        try {
+            $status = trim($ssh->exec("systemctl is-active wg-quick@wg0"));
+            $this->wireguardStatus = ($status === 'active') ? 'Running' : 'Not Running';
+        } catch (\Exception $e) {
+            Log::channel('ssh')->error("Error fetching WireGuard status: " . $e->getMessage());
+            $this->wireguardStatus = 'Error';
+        }
+    }
+
     private function fetchIkev2Status($ssh)
     {
         try {
@@ -296,10 +311,12 @@ HTML;
                 })->toArray();
             }
 
+            $this->wireguardConnectedUsers = $data['wireguard_connected'] ?? 0;
             $this->ikev2ConnectedUsers = $data['ikev2_connected'] ?? 0;
         } catch (\Exception $e) {
             $this->connectedUsers = null;
             $this->ikev2ConnectedUsers = 'Error';
+            $this->wireguardConnectedUsers = 'Error';
             $this->dispatch('sweetToast', type: 'error', message: $e->getMessage(), title: 'Error!');
             Log::channel('ssh')->error("Error fetching {$this->server->ip_address} server VPN connected users: " . $e->getMessage());
         }
