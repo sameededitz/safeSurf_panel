@@ -35,6 +35,12 @@ class Login extends Component
 
         $user = User::where('email', $this->email)->first();
 
+        if (! $user) {
+            throw ValidationException::withMessages([
+                'email' => "User with this email doesn't exist.",
+            ]);
+        }
+
         if ($user->role !== 'admin') {
             throw ValidationException::withMessages([
                 'email' => "You are not admin.",

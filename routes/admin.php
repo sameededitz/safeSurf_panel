@@ -8,4 +8,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
 Route::get('/plans', AllPlans::class)->name('admin.plans');
-Route::get('/create.plan', CreatePlan::class)->name('admin.create.plan');
+Route::get('/create/plan', CreatePlan::class)->name('admin.create.plan');
