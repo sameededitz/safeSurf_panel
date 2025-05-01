@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('plan_id')->constrained()->onDelete('cascade');
+            $table->decimal('amount_paid', 8, 2);
+            $table->timestamp('start_date')->useCurrent();
+            $table->timestamp('end_date')->nullable();
+            $table->enum('status', ['active', 'expired', 'cancelled'])->default('active');
             $table->timestamps();
         });
     }
