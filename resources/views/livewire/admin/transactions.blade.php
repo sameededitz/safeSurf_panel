@@ -122,7 +122,7 @@
             </table>
         </div>
         <div class="mt-2">
-            {{-- {{ $plans->links('components.pagination', data: ['scrollTo' => false]) }} --}}
+            {{ $purchases->links('components.pagination', data: ['scrollTo' => false]) }}
         </div>
     </div>
 </div>

@@ -21,3 +21,5 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- App js -->
 <script src="{{ asset('assets/js/app.js') }}"></script>
+
+@yield('scripts')

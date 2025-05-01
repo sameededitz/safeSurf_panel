@@ -97,7 +97,7 @@
             </table>
         </div>
         <div class="mt-2">
-            {{-- {{ $plans->links('components.pagination', data: ['scrollTo' => false]) }} --}}
+            {{ $vpsServers->links('components.pagination', data: ['scrollTo' => false]) }}
         </div>
     </div>
 </div>
