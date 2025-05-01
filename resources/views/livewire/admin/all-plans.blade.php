@@ -73,7 +73,7 @@
                         <td>{{ $plan->created_at->toFormattedDateString() }}</td>
                         <td>
                             <div class="d-flex align-items-center">
-                                <a href=""
+                                <a href="{{ route('admin.edit.plan', $plan->id) }}"
                                     class="btn btn-light-success btn-rounded btn-icon me-1 d-inline-flex align-items-center">
                                     <iconify-icon icon="lucide:edit" width="20"
                                         height="20"></iconify-icon>
