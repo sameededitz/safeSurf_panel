@@ -59,7 +59,7 @@
                 </li>
 
                 <li>
-                    <a href="e" class="waves-effect d-flex align-items-center">
+                    <a href="{{ route('admin.users') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="ri:user-line" class="flex-shrink-0 mr-2" width="20"
                         height="20"></iconify-icon>
                         <span> Users</span>
@@ -67,7 +67,7 @@
                 </li>
                 <li class="menu-title">Panels</li>
                 <li>
-                    <a href="f" class="waves-effect d-flex align-items-center">
+                    <a href="{{ route('admin.admins') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="ri:admin-line" class="flex-shrink-0 mr-2" width="20"
                         height="20"></iconify-icon>
                         <span> Admins</span>
@@ -75,7 +75,7 @@
                 </li>
 
                 <li>
-                    <a href="g" class="waves-effect d-flex align-items-center">
+                    <a href="{{ route('admin.notifications') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="iconamoon:notification" class="flex-shrink-0 mr-2" width="20"
                         height="20"></iconify-icon>
                         <span> Notifications</span>
@@ -97,7 +97,7 @@
                 </li>
 
                 <li>
-                    <a href="j" class="waves-effect d-flex align-items-center">
+                    <a href="{{ route('admin.feedback') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="material-symbols-light:feedback-outline" class="flex-shrink-0 mr-2" width="20"
                         height="20"></iconify-icon>
                         <span> Feedbacks</span>
