@@ -29,15 +29,15 @@
                 <li>
                     <a href="{{ route('admin.vps.servers') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="qlementine-icons:server-16" class="flex-shrink-0 mr-2" width="20"
-                        height="20"></iconify-icon>
+                            height="20"></iconify-icon>
                         <span> VPS Servers</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="b" class="waves-effect d-flex align-items-center">
+                    <a href="{{ route('admin.servers') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="ic:baseline-vpn-lock" class="flex-shrink-0 mr-2" width="20"
-                        height="20"></iconify-icon>
+                            height="20"></iconify-icon>
                         <span> VPN Servers</span>
                     </a>
                 </li>
@@ -45,7 +45,7 @@
                 <li>
                     <a href="{{ route('admin.plans') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="mdi:currency-usd" class="flex-shrink-0 mr-2" width="20"
-                        height="20"></iconify-icon>
+                            height="20"></iconify-icon>
                         <span> Plans</span>
                     </a>
                 </li>
@@ -53,7 +53,7 @@
                 <li>
                     <a href="{{ route('admin.transactions') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="hugeicons:transaction" class="flex-shrink-0 mr-2" width="20"
-                        height="20"></iconify-icon>
+                            height="20"></iconify-icon>
                         <span> Transactions</span>
                     </a>
                 </li>
@@ -61,7 +61,7 @@
                 <li>
                     <a href="{{ route('admin.users') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="ri:user-line" class="flex-shrink-0 mr-2" width="20"
-                        height="20"></iconify-icon>
+                            height="20"></iconify-icon>
                         <span> Users</span>
                     </a>
                 </li>
@@ -69,7 +69,7 @@
                 <li>
                     <a href="{{ route('admin.accounts') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="ri:admin-line" class="flex-shrink-0 mr-2" width="20"
-                        height="20"></iconify-icon>
+                            height="20"></iconify-icon>
                         <span> Admins</span>
                     </a>
                 </li>
@@ -77,29 +77,31 @@
                 <li>
                     <a href="{{ route('admin.notifications') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="iconamoon:notification" class="flex-shrink-0 mr-2" width="20"
-                        height="20"></iconify-icon>
+                            height="20"></iconify-icon>
                         <span> Notifications</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="h" class="waves-effect d-flex align-items-center">
-                        <iconify-icon icon="bx:support" class="flex-shrink-0 mr-2" width="20" height="20"></iconify-icon>
+                        <iconify-icon icon="bx:support" class="flex-shrink-0 mr-2" width="20"
+                            height="20"></iconify-icon>
                         <span> Tickets Support</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ route('admin.mail-manage') }}" class="waves-effect d-flex align-items-center">
-                        <iconify-icon icon="mage:email" class="flex-shrink-0 mr-2" width="20" height="20"></iconify-icon>
+                    <a href="i" class="waves-effect d-flex align-items-center">
+                        <iconify-icon icon="mage:email" class="flex-shrink-0 mr-2" width="20"
+                            height="20"></iconify-icon>
                         <span> Email Manage</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('admin.feedback') }}" class="waves-effect d-flex align-items-center">
-                        <iconify-icon icon="material-symbols-light:feedback-outline" class="flex-shrink-0 mr-2" width="20"
-                        height="20"></iconify-icon>
+                        <iconify-icon icon="material-symbols-light:feedback-outline" class="flex-shrink-0 mr-2"
+                            width="20" height="20"></iconify-icon>
                         <span> Feedbacks</span>
                     </a>
                 </li>
@@ -107,12 +109,12 @@
                 <li>
                     <a href="{{ route('admin.tos') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="material-symbols-light:settings-outline-rounded" class="flex-shrink-0 mr-2"
-                        width="20" height="20"></iconify-icon>
+                            width="20" height="20"></iconify-icon>
                         <span> Settings</span>
                     </a>
                 </li>
 
-                
+
 
                 {{-- <li>
                     <a href="" class="waves-effect d-flex align-items-center">
