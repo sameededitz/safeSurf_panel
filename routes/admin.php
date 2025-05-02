@@ -1,23 +1,28 @@
 <?php
 
-use App\Http\Controllers\admin\DashboardController;
+use App\Livewire\Admin\Users;
 use App\Livewire\Admin\Admins;
 use App\Livewire\Admin\AllPlans;
-use App\Livewire\Admin\CreateNotification;
-use App\Livewire\Admin\CreatePlan;
-use App\Livewire\Admin\CreateUser;
-use App\Livewire\Admin\CreateVpsServers;
-use App\Livewire\Admin\EditNotification;
 use App\Livewire\Admin\EditPlan;
 use App\Livewire\Admin\EditUser;
-use App\Livewire\Admin\EditVpsServers;
 use App\Livewire\Admin\Feedbacks;
-use App\Livewire\Admin\Notifications;
-use App\Livewire\Admin\Transactions;
-use App\Livewire\Admin\Users;
+use App\Livewire\Admin\AllServers;
+use App\Livewire\Admin\CreatePlan;
+use App\Livewire\Admin\CreateUser;
+use App\Livewire\Admin\EditServer;
 use App\Livewire\Admin\VpsServers;
-use App\Livewire\Admin\VpsServersManager;
+use App\Livewire\Admin\CreateServer;
+use App\Livewire\Admin\Transactions;
+use App\Livewire\Admin\AllSubServers;
+use App\Livewire\Admin\Notifications;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Admin\EditVpsServers;
+use App\Livewire\Admin\CreateSubServer;
+use App\Livewire\Admin\CreateVpsServers;
+use App\Livewire\Admin\EditNotification;
+use App\Livewire\Admin\VpsServersManager;
+use App\Livewire\Admin\CreateNotification;
+use App\Http\Controllers\admin\DashboardController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -30,6 +35,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/create-vps-servers', CreateVpsServers::class)->name('admin.create.vps-server');
     Route::get('/edit-vps-servers/{vpsServers}', EditVpsServers::class)->name('admin.edit.vps-server');
     Route::get('/vps-server-manager/{vpsServer}', VpsServersManager::class)->name('admin.vps-server-manager');
+
+    Route::get('/servers', AllServers::class)->name('admin.servers');
+    Route::get('/create-server', CreateServer::class)->name('admin.create.server');
+    Route::get('/edit-server/{server}', EditServer::class)->name('admin.edit.server');
+
+    Route::get('/subServers/{server}', AllSubServers::class)->name('admin.subServers');
+    Route::get('/create-sub-server/{server}', CreateSubServer::class)->name('admin.create.sub-server');
     
     Route::get('/transactions', Transactions::class)->name('admin.transactions');
     

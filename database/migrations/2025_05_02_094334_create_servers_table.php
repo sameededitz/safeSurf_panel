@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('servers', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->boolean('android')->default(false);
+            $table->boolean('ios')->default(false);
+            $table->boolean('macos')->default(false);
+            $table->boolean('windows')->default(false);
+            $table->string('longitude')->nullable();
+            $table->string('latitude')->nullable();
+            $table->enum('type', ['free', 'premium'])->default('free');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
