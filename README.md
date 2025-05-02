@@ -1,61 +1,144 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🛡️ SafeSurf VPN Admin Panel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**SafeSurf Panel** is a robust admin dashboard tailored for managing VPN infrastructures with ease and security. Built for efficiency, it includes end-to-end control of VPS servers, VPN deployments, user accounts, subscription plans, ticketing, user feedback, SMTP configurations, and legal content like Terms of Service and Privacy Policy.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🔧 Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 🖥 VPS Server Management
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   **Add/Edit/Delete VPS Servers**
+-   **Execute Remote Commands** via SSH (phpseclib)
+-   **Real-Time VPS Monitoring** (CPU, RAM, Disk)
 
-## Learning Laravel
+### 🔐 VPN Server Management
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+-   **Connect VPN Servers to VPS**
+-   **Deployment & Monitoring** of VPN services
+-   **Track Connected Users** & Bandwidth usage
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 👥 User Management
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+-   **Add, Edit, Block Users**
+-   **Track Activity & Usage Logs**
+-   **Subscription Status Control**
 
-## Laravel Sponsors
+### 💳 Plan & Purchase Management
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+-   **Create/Edit VPN Plans** with pricing & durations
+-   **Handle User Purchases** and expiration tracking
+-   **Active/Expired Plan Monitoring**
 
-### Premium Partners
+### 🎟 Ticket Support
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+-   **Users Can Submit Tickets**
+-   **Admin Replies, Closes, or Deletes**
+-   **Ticket Conversation Log**
+
+### 💬 Feedback System
+
+-   **Users Submit Feedback**
+-   **Admins View, Filter, and Respond**
+
+### 📧 SMTP Configuration
+
+-   **Dynamic Email Config Setup**
+-   **Test & Save SMTP Credentials**
+
+### 📃 Terms & Privacy Management
+
+-   **Manage Terms of Service Content**
+-   **Update Privacy Policy Dynamically**
+
+---
+
+## 🚀 Installation Guide
+
+### 📦 Requirements
+
+-   PHP 8.2+
+-   Laravel 10+
+-   MySQL
+-   Node.js + NPM
+-   Composer
+-   VPS Access with SSH
+
+### ⚙️ Setup
+
+```bash
+git clone https://github.com/sameededitz/safeSurf_panel.git
+cd safesurf-panel
+
+composer install
+cp .env.example .env
+php artisan key:generate
+
+php artisan migrate --seed
+php artisan serve
+```
+
+### 🌐 Accessing the Panel
+
+-   Open your browser and navigate to `http://localhost:8000` (or your server's IP).
+-   Login with the default credentials:
+    -   **Email:** `admin@example.com`
+        -   **Password:** `password`
+-   Change the password immediately after the first login.
+-   Configure your SMTP settings in the admin panel for email notifications.
+-   Add your VPS servers and connect them to the VPN service.
+-   Deploy VPN servers and manage user accounts.
+-   Monitor user activity, bandwidth, and ticket support.
+-   Customize your Terms of Service and Privacy Policy.
+-   Use the feedback system to gather user insights.
+-   Enjoy a seamless VPN management experience!
+
+## 🧰 Tech Stack
+
+-   **Backend:** PHP, Laravel 12
+-   **Frontend:** Livewire 3, Bootstrap 5
+-   **Database:** MySQL
+-   **VPS Management:** SSH (phpseclib)
+-   **Mailing:** SMTP
+-   **Charts:** ApexCharts
+-   **Media Handling:** Spatie Media Library
+-   **License:** MIT
+-   **Contributors:** [sameededitz](https://github.com/sameededitz), [Azil](https://github.com/Azil6744)
+
+---
+
+## 👨‍💻 Developer Information
+
+-   **Developer**: Sameed
+-   **Instagram**: [@not_sameed52](https://www.instagram.com/not_sameed52/)
+-   **Discord**: sameededitz
+-   **Linktree**: [linktr.ee/sameeddev](https://linktr.ee/sameeddev)
+-   **GitHub**: [sameededitz](https://github.com/sameededitz)
+-   **Company**: TecClubb
+    -   **Website**: [https://tecclubx.com/](https://tecclubx.com/)
+    -   **Contact**: tecclubx@gmail.com
+
+## 🏢 Company Info
+
+-   **Company Name**: TecClubb
+-   **Company Website**: [https://tecclubx.com/](https://tecclubx.com/)
+-   **Company Email**: tecclubx@gmail.com
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Contributions are welcome! Fork the repository, create a new branch, and submit a pull request. Open an issue first for significant changes.
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## Contact
+
+For inquiries or support, reach out via:
+
+-   **Email**: tecclubb@gmail.com
+-   **Website**: [https://tecclubx.com/](https://tecclubx.com/)
