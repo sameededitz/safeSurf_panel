@@ -1,28 +1,32 @@
 <?php
 
-use App\Livewire\Admin\Users;
+use App\Http\Controllers\admin\DashboardController;
 use App\Livewire\Admin\Admins;
 use App\Livewire\Admin\AllPlans;
-use App\Livewire\Admin\EditPlan;
-use App\Livewire\Admin\EditUser;
-use App\Livewire\Admin\Feedbacks;
 use App\Livewire\Admin\AllServers;
-use App\Livewire\Admin\CreatePlan;
-use App\Livewire\Admin\CreateUser;
-use App\Livewire\Admin\EditServer;
-use App\Livewire\Admin\VpsServers;
-use App\Livewire\Admin\CreateServer;
-use App\Livewire\Admin\Transactions;
 use App\Livewire\Admin\AllSubServers;
-use App\Livewire\Admin\Notifications;
-use Illuminate\Support\Facades\Route;
-use App\Livewire\Admin\EditVpsServers;
+use App\Livewire\Admin\CreateNotification;
+use App\Livewire\Admin\CreatePlan;
+use App\Livewire\Admin\CreateServer;
 use App\Livewire\Admin\CreateSubServer;
+use App\Livewire\Admin\CreateUser;
 use App\Livewire\Admin\CreateVpsServers;
 use App\Livewire\Admin\EditNotification;
+use App\Livewire\Admin\EditPlan;
+use App\Livewire\Admin\EditServer;
+use App\Livewire\Admin\EditUser;
+use App\Livewire\Admin\EditVpsServers;
+use App\Livewire\Admin\Feedbacks;
+use App\Livewire\Admin\Notifications;
+use App\Livewire\Admin\Tos;
+use App\Livewire\Admin\Transactions;
+use App\Livewire\Admin\Users;
+use App\Livewire\Admin\VpsServers;
 use App\Livewire\Admin\VpsServersManager;
-use App\Livewire\Admin\CreateNotification;
-use App\Http\Controllers\admin\DashboardController;
+use App\Models\MailManager;
+use Illuminate\Support\Facades\Route;
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
