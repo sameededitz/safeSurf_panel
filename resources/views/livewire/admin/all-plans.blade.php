@@ -18,6 +18,9 @@
 
 
     <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Plans</h4>
+        </div>
         <div class="card-body">
             <div class="d-flex justify-content-between mb-2">
             <div class="d-flex flex-row" >

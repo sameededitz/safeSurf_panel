@@ -1,5 +1,3 @@
-
-
 <div>
     <div class="row">
         <div class="col-sm-12">
@@ -20,27 +18,28 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between mb-2">
-            <div class="d-flex flex-row" >
-                <div style=" margin-right: 10px;">
-                    <select class="form-control" name="perpage" wire:model.live="perPage">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
+                <div class="d-flex flex-row">
+                    <div style=" margin-right: 10px;">
+                        <select class="form-control" name="perpage" wire:model.live="perPage">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div style="margin-left: 10px;">
+                        <select class="form-control " wire:model.live="statusFilter">
+                            <option value="" selected>Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
                 </div>
-                <div style="margin-left: 10px;">
-                    <select class="form-control " wire:model.live="statusFilter">
-                        <option value="" selected>Status</option>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
+                <div class="d-flex justify-content-end mb-2">
+                    <a href="{{ route('admin.create.vps-server') }}" class="btn btn-light waves-effect">Create VPS
+                        Server</a>
                 </div>
-            </div>  
-            <div class="d-flex justify-content-end mb-2">
-                <a href="{{ route('admin.create.vps-server') }}" class="btn btn-light waves-effect">Create VPS Server</a>
             </div>
-        </div>
             <table id="tech-companies-1" class="table  table-striped">
                 <thead>
                     <tr>
@@ -56,43 +55,42 @@
                 </thead>
                 <tbody>
                     @forelse ($vpsServers as $server)
-                    <tr>
-                        <td>{{ $server->id }}</td>
-                        <td>{{ $server->name }}</td>
-                        <td>{{ $server->ip_address }}</td>
-                        <td>{{ $server->username }}</td>
-                        <td>{{ $server->port }}</td>
-                        <td>{{ $server->domain }}</td>
-                        <td>
-                            <span
-                                class="badge {{ $server->status == 1 ? 'badge-success' : 'badge-danger' }}">
-                                {{ $server->status == 1 ? 'Active' : 'Inactive' }}</span>  </td>
-                        <td>
-                            <div class="d-flex">
-                                <a href="{{ route('admin.vps-server-manager') }}"
-                                    class="btn btn-light-info btn-rounded btn-icon me-1 d-inline-flex align-items-center">
-                                    <Iconify-icon icon="famicons:stats-chart-outline" width="20"
-                                        height="20"></Iconify-icon>
-                                </a>
-                                <a href="{{ route('admin.edit.vps-server',$server->id) }}"
-                                    class="btn btn-light-success btn-rounded btn-icon me-1 d-inline-flex align-items-center">
-                                    <Iconify-icon icon="lucide:edit" width="20"
-                                        height="20"></Iconify-icon>
-                                </a>
-                                <button
-                                    class="btn btn-light-danger btn-rounded btn-icon d-inline-flex align-items-center"
-                                    wire:click="$js.confirmDelete({{ $server->id }})">
-                                    <Iconify-icon icon="mingcute:delete-2-line" width="20"
-                                        height="20"></Iconify-icon>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="8" class="text-center">No VPS servers found</td>
-                    </tr>
-                @endforelse
+                        <tr>
+                            <td>{{ $server->id }}</td>
+                            <td>{{ $server->name }}</td>
+                            <td>{{ $server->ip_address }}</td>
+                            <td>{{ $server->username }}</td>
+                            <td>{{ $server->port }}</td>
+                            <td>{{ $server->domain }}</td>
+                            <td>
+                                <span class="badge {{ $server->status == 1 ? 'badge-success' : 'badge-danger' }}">
+                                    {{ $server->status == 1 ? 'Active' : 'Inactive' }}</span>
+                            </td>
+                            <td>
+                                <div class="d-flex">
+                                    <a href="{{ route('admin.vps-server-manager', $server->id) }}"
+                                        class="btn btn-light-info btn-rounded btn-icon me-1 d-inline-flex align-items-center">
+                                        <Iconify-icon icon="famicons:stats-chart-outline" width="20"
+                                            height="20"></Iconify-icon>
+                                    </a>
+                                    <a href="{{ route('admin.edit.vps-server', $server->id) }}"
+                                        class="btn btn-light-success btn-rounded btn-icon me-1 d-inline-flex align-items-center">
+                                        <Iconify-icon icon="lucide:edit" width="20" height="20"></Iconify-icon>
+                                    </a>
+                                    <button
+                                        class="btn btn-light-danger btn-rounded btn-icon d-inline-flex align-items-center"
+                                        wire:click="$js.confirmDelete({{ $server->id }})">
+                                        <Iconify-icon icon="mingcute:delete-2-line" width="20"
+                                            height="20"></Iconify-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center">No VPS servers found</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

@@ -58,6 +58,12 @@ return [
             'ignore_exceptions' => false,
         ],
 
+        'ssh' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/ssh.log'),
+            'level' => 'debug',
+        ],
+
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
