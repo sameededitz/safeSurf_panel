@@ -67,7 +67,7 @@
                 </li>
                 <li class="menu-title">Panels</li>
                 <li>
-                    <a href="{{ route('admin.admins') }}" class="waves-effect d-flex align-items-center">
+                    <a href="{{ route('admin.accounts') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="ri:admin-line" class="flex-shrink-0 mr-2" width="20"
                         height="20"></iconify-icon>
                         <span> Admins</span>
@@ -90,7 +90,7 @@
                 </li>
 
                 <li>
-                    <a href="i" class="waves-effect d-flex align-items-center">
+                    <a href="{{ route('admin.mail-manage') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="mage:email" class="flex-shrink-0 mr-2" width="20" height="20"></iconify-icon>
                         <span> Email Manage</span>
                     </a>
@@ -105,7 +105,7 @@
                 </li>
 
                 <li>
-                    <a href="k" class="waves-effect d-flex align-items-center">
+                    <a href="{{ route('admin.tos') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="material-symbols-light:settings-outline-rounded" class="flex-shrink-0 mr-2"
                         width="20" height="20"></iconify-icon>
                         <span> Settings</span>

@@ -8,9 +8,9 @@
                     <div class="page-title-box">
                         <div class="btn-group float-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">Plans</a></li>
-                                <li class="breadcrumb-item active">Create Plan</li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.notifications') }}">Notification</a></li>
+                                <li class="breadcrumb-item active">Create Notification</li>
                             </ol>
                         </div>
                         <h4 class="page-title">Create Notification</h4>
@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end mb-2">
-                                    <button type="submit" class="btn btn-light waves-effect">Create Plan</button>
+                                    <button type="submit" class="btn btn-light waves-effect">Create Notification</button>
                                 </div>
                             </div>
                         </div>

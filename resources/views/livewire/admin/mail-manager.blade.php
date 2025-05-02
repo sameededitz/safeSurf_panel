@@ -9,11 +9,10 @@
                         <div class="btn-group float-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.users') }}">User</a></li>
-                                <li class="breadcrumb-item active">Create User</li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.mail-manage') }}">Mail Configuration</a></li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Create User</h4>
+                        <h4 class="page-title">Mail Configuration</h4>
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -34,35 +33,49 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
+                                    <label for="example-text-input" class="col-sm-2 col-form-label">Mail Host</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" type="text" placeholder="Enter the Name "
-                                            id="example-text-input" wire:model='name'>
+                                        <input class="form-control" type="text" placeholder="Enter the Mail Host "
+                                            id="example-text-input" wire:model="mail_host">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="example-text-input" class="col-sm-2 col-form-label">Email</label>
+                                    <label for="example-text-input" class="col-sm-2 col-form-label">Mail Port</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" type="text" placeholder="Enter Your Email"
-                                            id="example-text-input" wire:model='email'>
+                                        <input class="form-control" type="text" placeholder="Enter the IP Address"
+                                            id="example-text-input" wire:model="mail_port">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="example-price-input" class="col-sm-2 col-form-label">Password</label>
+                                    <label for="example-price-input" class="col-sm-2 col-form-label">Mail Username</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" type="password" placeholder="Enter the password"
-                                            id="example-price-input" wire:model='password'>
+                                        <input class="form-control" type="text" placeholder="Enter the Username"
+                                            id="example-price-input" wire:model="mail_username">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="example-duration-input" class="col-sm-2 col-form-label">Confirm Password</label>
+                                    <label for="example-price-input" class="col-sm-2 col-form-label">Mail Password</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" type="password" id="example-duration-input"
-                                            wire:model='password_confirmation' placeholder="Confirm Password">
+                                        <input class="form-control" type="number" placeholder="Enter the Port"
+                                            id="example-price-input" wire:model="mail_password">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-price-input" class="col-sm-2 col-form-label">Mail Form Address</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="text" placeholder="Enter the Domain"
+                                            id="example-price-input" wire:model="mail_from_address">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-price-input" class="col-sm-2 col-form-label">Mail Form Name</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="text" placeholder="Enter the Domain"
+                                            id="example-price-input" wire:model="mail_from_name">
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end mb-2">
-                                    <button type="submit" class="btn btn-light waves-effect">Create User</button>
+                                    <button type="submit" class="btn btn-light waves-effect">Save</button>
                                 </div>
                             </div>
                         </div>
