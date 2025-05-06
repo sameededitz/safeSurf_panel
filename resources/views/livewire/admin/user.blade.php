@@ -42,28 +42,35 @@
                         </select>
                     </div>
                     <div class="dropdown mo-mb-2" style="margin-left: 10px;">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Date Filters
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start"
+                            style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
                             <div class="px-3 py-2">
                                 <label for="registeredFrom" class="form-label">Registered From</label>
-                                <input type="date" id="registeredFrom" class="form-control" wire:model.live="filters.registeredFrom">
+                                <input type="date" id="registeredFrom" class="form-control"
+                                    wire:model.live="filters.registeredFrom">
                             </div>
                             <div class="px-3 py-2">
                                 <label for="registeredTo" class="form-label">Registered To</label>
-                                <input type="date" id="registeredTo" class="form-control" wire:model.live="filters.registeredTo">
+                                <input type="date" id="registeredTo" class="form-control"
+                                    wire:model.live="filters.registeredTo">
                             </div>
                             <div class="px-3 py-2">
                                 <label for="lastLoginFrom" class="form-label">Last Login From</label>
-                                <input type="date" id="lastLoginFrom" class="form-control" wire:model.live="filters.lastLoginFrom">
+                                <input type="date" id="lastLoginFrom" class="form-control"
+                                    wire:model.live="filters.lastLoginFrom">
                             </div>
                             <div class="px-3 py-2">
                                 <label for="lastLoginTo" class="form-label">Last Login To</label>
-                                <input type="date" id="lastLoginTo" class="form-control" wire:model.live="filters.lastLoginTo">
+                                <input type="date" id="lastLoginTo" class="form-control"
+                                    wire:model.live="filters.lastLoginTo">
                             </div>
                             <div class="px-3 py-2">
-                                <button class="btn btn-primary btn-block" wire:click="applyFilters">Apply Filters</button>
+                                <button class="btn btn-primary btn-block" wire:click="applyFilters">Apply
+                                    Filters</button>
                             </div>
                         </div>
                     </div>
@@ -88,11 +95,15 @@
                         <tr>
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
-                            <td>${{ $user->email }}</td>
+                            <td>{{ $user->email }}</td>
                             <td>{{ $user->last_login }}</td>
-                            <td>{{ $user->created_at->toFormattedDateString() }}</td>
+                            <td>{{ $user->last_login ? $user->last_login->diffForHumans() : 'N/A' }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
+                                    <a href="{{ route('admin.user.manager', ['user' => $user->slug]) }}"
+                                        class="btn btn-outline-info d-flex align-items-center justify-content-center">
+                                        <Iconify-icon icon="ic:round-manage-accounts" width="20"
+                                            height="20"></Iconify-icon></a>
                                     <a href="{{ route('admin.edit.user', $user->id) }}"
                                         class="btn btn-light-success btn-rounded btn-icon me-1 d-inline-flex align-items-center">
                                         <iconify-icon icon="lucide:edit" width="20" height="20"></iconify-icon>
