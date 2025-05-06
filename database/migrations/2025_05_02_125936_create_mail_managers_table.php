@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('mail_managers', function (Blueprint $table) {
             $table->id();
-            $table->string('mailer')->nullable();
-            $table->string('scheme')->nullable(); // optional
             $table->string('host')->nullable();
             $table->string('port')->nullable();
             $table->string('username')->nullable();
