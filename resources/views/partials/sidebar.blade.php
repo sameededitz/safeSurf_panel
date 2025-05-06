@@ -21,8 +21,8 @@
 
                 <li>
                     <a href="{{ route('admin.dashboard') }}" class="waves-effect d-flex align-items-center">
-                        <iconify-icon icon="qlementine-icons:server-16" class="flex-shrink-0 mr-2" width="20"
-                            height="20"></iconify-icon>
+                        <iconify-icon icon="qlementine-icons:home-16" class="flex-shrink-0 mr-2" width="20"
+                        height="20"></iconify-icon>
                         <span> Dashboard</span>
                     </a>
                 </li>
