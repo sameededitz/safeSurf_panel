@@ -3,14 +3,14 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Ticket;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use App\Models\TicketMessage;
 use Livewire\WithFileUploads;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Support\Facades\Auth;
 use Spatie\LivewireFilepond\WithFilePond;
-use App\Models\TicketMessage as TicketMessageModel;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class TicketMessage extends Component
+class TicketDetails extends Component
 {
     use WithFileUploads, WithFilePond;
 
@@ -53,7 +53,7 @@ class TicketMessage extends Component
     public function startEditing($id)
     {
         $this->editingMessageId = $id;
-        $message = TicketMessageModel::findOrFail($id);
+        $message = TicketMessage::findOrFail($id);
         $this->editMessageContent = $message->message;
         $this->existingImages = $message->getMedia('attachments')->pluck('uuid')->toArray();
     }
@@ -102,11 +102,9 @@ class TicketMessage extends Component
 
     public function deleteMessage($id)
     {
-        $message = TicketMessageModel::findOrFail($id);
+        $message = TicketMessage::findOrFail($id);
 
-        foreach ($message->getMedia('attachments') as $media) {
-            $media->delete();
-        }
+        $message->clearMediaCollection('attachments');
 
         $message->delete();
 
@@ -154,8 +152,9 @@ class TicketMessage extends Component
     {
         $ticket = Ticket::with(['user:id,name', 'messages'])
             ->findOrFail($this->ticketId);
-                  /** @disregard @phpstan-ignore-line */
-        return view('livewire.admin.ticket-message', compact('ticket'))
+
+        /** @disregard @phpstan-ignore-line */
+        return view('livewire.admin.ticket-details', compact('ticket'))
             ->extends('layouts.admin')
             ->section('content');
     }
