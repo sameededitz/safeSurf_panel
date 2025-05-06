@@ -1,3 +1,4 @@
+@section('title', 'Mail Configuration')
 <div>
     <div class="page-content-wrapper ">
 
@@ -89,9 +90,6 @@
 </div>
 @script
     <script>
-        $wire.on('snackbar', (event) => {
-            showSnackbar(event.message, event.type);
-        });
         $wire.on('redirect', (event) => {
             setTimeout(() => {
                 window.location.href = event.url;
@@ -99,5 +97,3 @@
         });
     </script>
 @endscript
-
-

@@ -17,9 +17,9 @@ use App\Livewire\Admin\EditServer;
 use App\Livewire\Admin\EditUser;
 use App\Livewire\Admin\EditVpsServers;
 use App\Livewire\Admin\Feedbacks;
-use App\Livewire\Admin\MailManager;
+use App\Livewire\Admin\MailConfig;
 use App\Livewire\Admin\Notifications;
-use App\Livewire\Admin\TicketMessage;
+use App\Livewire\Admin\TicketDetails;
 use App\Livewire\Admin\Tickets;
 use App\Livewire\Admin\Tos;
 use App\Livewire\Admin\Transactions;
@@ -62,9 +62,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/edit-notifications/{notification}', EditNotification::class)->name('admin.edit.notifications');
     
     Route::get('/feedback', Feedbacks::class)->name('admin.feedback');
-    Route::get('/mail-manage', MailManager::class)->name('admin.mail-manage');
+    Route::get('/mail-manage', MailConfig::class)->name('admin.mail-manage');
     Route::get('/tos', Tos::class)->name('admin.tos');
     Route::get('/tickets', Tickets::class)->name('admin.tickets');
-    Route::get('/tickets-details/{ticketId}', TicketMessage::class)->name('admin.tickets.details');
+    Route::get('/tickets-details/{ticketId}', TicketDetails::class)->name('admin.tickets.details');
 
 });

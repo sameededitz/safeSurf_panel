@@ -3,18 +3,17 @@
 namespace App\Livewire\Admin;
 
 use Livewire\Component;
+use App\Models\MailManager;
 use Illuminate\Support\Facades\Artisan;
-use App\Models\MailManager as MailManagerModel;
 
-class MailManager extends Component
+class MailConfig extends Component
 {
     public $mail_driver, $mail_host, $mail_port, $mail_username, $mail_password, $mail_from_address, $mail_from_name;
 
     public function mount()
     {
-        $settings = MailManagerModel::first();
+        $settings = MailManager::first();
 
-        $this->mail_driver = $settings->mailer ?? config('mail.mailers.smtp.transport');
         $this->mail_host = $settings->host ?? config('mail.mailers.smtp.host');
         $this->mail_port = $settings->port ?? config('mail.mailers.smtp.port');
         $this->mail_username = $settings->username ?? config('mail.mailers.smtp.username');
@@ -26,7 +25,6 @@ class MailManager extends Component
     public function store()
     {
         $this->validate([
-            'mail_driver' => 'required|string',
             'mail_host' => 'required|string',
             'mail_port' => 'required|numeric',
             'mail_username' => 'required|string',
@@ -35,10 +33,9 @@ class MailManager extends Component
             'mail_from_name' => 'required|string',
         ]);
 
-        MailManagerModel::updateOrCreate(
+        MailManager::updateOrCreate(
             ['id' => 1], // only one row
             [
-                'mailer' => $this->mail_driver,
                 'host' => $this->mail_host,
                 'port' => $this->mail_port,
                 'username' => $this->mail_username,
@@ -49,6 +46,7 @@ class MailManager extends Component
         );
 
         Artisan::call('config:clear');
+        Artisan::call('queue:restart');
 
         $this->dispatch('sweetAlert', title: 'Success', message: 'Mail settings updated successfully.', type: 'success');
     }
@@ -56,7 +54,7 @@ class MailManager extends Component
     public function render()
     {
         /** @disregard @phpstan-ignore-line */
-        return view('livewire.admin.mail-manager')
+        return view('livewire.admin.mail-config')
             ->extends('layouts.admin')
             ->section('content');
     }

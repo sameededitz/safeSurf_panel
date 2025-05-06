@@ -1,0 +1,106 @@
+.gap-2{
+    gap: 0.5rem;
+}
+
+.chat-message {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+/* Left side (user messages) */
+.chat-message.left {
+    justify-content: flex-start;
+}
+
+/* Right side (admin messages) */
+.chat-message.right {
+    justify-content: flex-end;
+}
+
+.chat-message.left .chat-left-msg {
+
+    width: fit-content;
+
+    background: #272a33;
+
+    color: white;
+
+    padding: 0.80rem;
+
+    border-radius: 12px;
+
+    max-width: 480px;
+
+    text-align: left;
+
+    border-top-left-radius: 0;
+
+    margin-right: 10px;
+}
+
+.chat-message.right .chat-right-msg {
+
+    width: fit-content;
+
+    background: #272a33;
+
+    color: white;
+
+    padding: 0.80rem;
+
+    border-radius: 12px;
+
+    float: right;
+
+    max-width: 480px;
+
+    text-align: left;
+
+    border-bottom-right-radius: 0;
+
+    margin-left: 10px;
+}
+
+.chat-message .attachments{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Image attachments */
+.chat-message .attachments img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.transparent-btn {
+    background-color: transparent !important;
+    border: none !important;
+    color: #272a33 !important;
+    padding: 0 !important;
+    margin: 0;
+    margin-right: 8px;
+    font-size: 1rem !important;
+}
+
+@media (max-width: 768px) {
+    .chat-wrapper .card .card-header{
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .chat-message.left .chat-left-msg {
+        max-width: 100%;
+    }
+
+    .chat-message.right .chat-right-msg {
+        max-width: 100%;
+    }
+}
