@@ -1,5 +1,3 @@
-
-
 <div>
     <div class="row">
         <div class="col-sm-12">
@@ -23,38 +21,28 @@
         </div>
         <div class="card-body">
             <div class="d-flex justify-content-between mb-2">
-            <div class="d-flex flex-row" >
-                <div style=" margin-right: 10px;">
-                    <select class="form-control" name="perpage" wire:model.live="perPage">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
+                <div class="d-flex flex-row">
+                    <div style=" margin-right: 10px;">
+                        <select class="form-control" name="perpage" wire:model.live="perPage">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select class="form-control" wire:model.live="status">
+                            <option value="" selected>All</option>
+                            <option value="open">Open</option>
+                            <option value="closed">Closed</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                    </div>
                 </div>
-                <div >
-                    <select class="form-control" wire:model.live="priceFilter">
-                        <option value="" selected>Max Price</option>
-                        <option value="10">Under $10</option>
-                        <option value="20">Under $20</option>
-                        <option value="50">Under $50</option>
-                        <option value="100">Under $100</option>
-                    </select>
+                <div class="d-flex justify-content-end mb-2">
+                    {{-- <a href="{{ route('admin.create.plan') }}" class="btn btn-light waves-effect">Create Plan</a> --}}
                 </div>
-                <div style="margin-left: 10px;">
-                    <select class="form-control " wire:model.live="durationUnitFilter">
-                        <option value="" selected>Duration Unit</option>
-                        <option value="day">Day</option>
-                        <option value="week">Week</option>
-                        <option value="month">Month</option>
-                        <option value="year">Year</option>
-                    </select>
-                </div>
-            </div>  
-            <div class="d-flex justify-content-end mb-2">
-                {{-- <a href="{{ route('admin.create.plan') }}" class="btn btn-light waves-effect">Create Plan</a> --}}
             </div>
-        </div>
             <table id="tech-companies-1" class="table  table-striped">
                 <thead>
                     <tr>
@@ -92,57 +80,57 @@
                     @empty
                         
                     @endforelse --}} @forelse ($tickets as $ticket)
-                                <tr>
-                                    <td>{{ $ticket->id }}</td>
-                                    <td>{{ $ticket->user->name }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.tickets.details', $ticket->id) }}"
-                                            class="text-primary">{{ $ticket->subject }}</a>
-                                    </td>
-                                    <td>
-                                        @if ($ticket->status == 'open')
-                                            <span class="badge bg-success">Open</span>
-                                        @elseif ($ticket->status == 'closed')
-                                            <span class="badge bg-danger">Closed</span>
-                                        @else
-                                            <span class="badge bg-warning">Pending</span>
-                                        @endif
-                                    </td>
-                                    <td>{{ $ticket->created_at->toFormattedDateString() }}</td>
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            @if ($ticket->status !== 'closed')
-                                                <button type="button"
-                                                    wire:click="$js.updateStatus({{ $ticket->id }}, 'close')"
-                                                    class="btn btn-outline-danger d-flex align-items-center justify-content-center">
-                                                    <Iconify-icon icon="material-symbols:close-rounded" width="20"
-                                                        height="20"></Iconify-icon>
-                                                </button>
-                                            @endif
-                                            @if ($ticket->status !== 'open')
-                                                <button type="button"
-                                                    wire:click="$js.updateStatus({{ $ticket->id }}, 'open')"
-                                                    class="btn btn-outline-success d-flex align-items-center justify-content-center">
-                                                    <Iconify-icon icon="material-symbols:check-circle-outline"
-                                                        width="20" height="20"></Iconify-icon>
-                                                </button>
-                                            @endif
-                                            @if ($ticket->status !== 'pending')
-                                                <button type="button"
-                                                    wire:click="$js.updateStatus({{ $ticket->id }}, 'pending')"
-                                                    class="btn btn-outline-warning d-flex align-items-center justify-content-center">
-                                                    <Iconify-icon icon="material-symbols:hourglass-top" width="20"
-                                                        height="20"></Iconify-icon>
-                                                </button>
-                                            @endif
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="8" class="text-center">No Tickets found</td>
-                                </tr>
-                            @endforelse
+                        <tr>
+                            <td>{{ $ticket->id }}</td>
+                            <td>{{ $ticket->user->name }}</td>
+                            <td>
+                                <a href="{{ route('admin.tickets.details', $ticket->id) }}"
+                                    class="text-primary">{{ $ticket->subject }}</a>
+                            </td>
+                            <td>
+                                @if ($ticket->status == 'open')
+                                    <span class="badge bg-success">Open</span>
+                                @elseif ($ticket->status == 'closed')
+                                    <span class="badge bg-danger">Closed</span>
+                                @else
+                                    <span class="badge bg-warning">Pending</span>
+                                @endif
+                            </td>
+                            <td>{{ $ticket->created_at->toFormattedDateString() }}</td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    @if ($ticket->status !== 'closed')
+                                        <button type="button"
+                                            wire:click="$js.updateStatus({{ $ticket->id }}, 'close')"
+                                            class="btn btn-outline-danger d-flex align-items-center justify-content-center">
+                                            <Iconify-icon icon="material-symbols:close-rounded" width="20"
+                                                height="20"></Iconify-icon>
+                                        </button>
+                                    @endif
+                                    @if ($ticket->status !== 'open')
+                                        <button type="button"
+                                            wire:click="$js.updateStatus({{ $ticket->id }}, 'open')"
+                                            class="btn btn-outline-success d-flex align-items-center justify-content-center">
+                                            <Iconify-icon icon="material-symbols:check-circle-outline" width="20"
+                                                height="20"></Iconify-icon>
+                                        </button>
+                                    @endif
+                                    @if ($ticket->status !== 'pending')
+                                        <button type="button"
+                                            wire:click="$js.updateStatus({{ $ticket->id }}, 'pending')"
+                                            class="btn btn-outline-warning d-flex align-items-center justify-content-center">
+                                            <Iconify-icon icon="material-symbols:hourglass-top" width="20"
+                                                height="20"></Iconify-icon>
+                                        </button>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center">No Tickets found</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

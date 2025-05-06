@@ -21,8 +21,8 @@
 
                 <li>
                     <a href="{{ route('admin.dashboard') }}" class="waves-effect d-flex align-items-center">
-                        <iconify-icon icon="qlementine-icons:server-16" class="flex-shrink-0 mr-2" width="20"
-                            height="20"></iconify-icon>
+                        <iconify-icon icon="qlementine-icons:home-16" class="flex-shrink-0 mr-2" width="20"
+                        height="20"></iconify-icon>
                         <span> Dashboard</span>
                     </a>
                 </li>
@@ -83,7 +83,7 @@
                 </li>
 
                 <li>
-                    <a href="h" class="waves-effect d-flex align-items-center">
+                    <a href="{{ route('admin.tickets') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="bx:support" class="flex-shrink-0 mr-2" width="20"
                             height="20"></iconify-icon>
                         <span> Tickets Support</span>
@@ -91,7 +91,7 @@
                 </li>
 
                 <li>
-                    <a href="i" class="waves-effect d-flex align-items-center">
+                    <a href="{{ route('admin.mail-manage') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="mage:email" class="flex-shrink-0 mr-2" width="20"
                             height="20"></iconify-icon>
                         <span> Email Manage</span>

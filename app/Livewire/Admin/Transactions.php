@@ -64,6 +64,7 @@ class Transactions extends Component
     public function render()
     {
         $purchases = Purchase::query()
+            ->with('user:id,slug,name,email','plan')
             ->when($this->search, fn($query) => $query->whereHas('user', fn($q) => $q->where('name', 'like', '%' . $this->search . '%')))
             ->when($this->statusFilter, fn($query) => $query->where('status', $this->statusFilter))
             ->when($this->amountFilter, fn($query) => $query->where('amount_paid', '<=', $this->amountFilter))

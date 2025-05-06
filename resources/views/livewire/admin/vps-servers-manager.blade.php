@@ -96,6 +96,22 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+            <div class="card">
+                <div class="card-body">
+                    <div class="widget-heading d-flex justify-content-between align-items-center">
+                        <h6 class="mb-1">Open VPN</h6>
+                        <span class="badge badge-light-{{ $ikev2Status == 'Running' ? 'success' : 'danger' }}">
+                            {{ $ikev2Status == 'Running' ? 'Running' : $ikev2Status }}
+                        </span>
+                    </div>
+                    <div class="users-connected">
+                        {{ $ikev2ConnectedUsers }} Users
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row mb-3">
