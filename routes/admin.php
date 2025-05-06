@@ -1,28 +1,34 @@
 <?php
 
-use App\Livewire\Admin\Users;
+use App\Http\Controllers\admin\DashboardController;
 use App\Livewire\Admin\Admins;
 use App\Livewire\Admin\AllPlans;
-use App\Livewire\Admin\EditPlan;
-use App\Livewire\Admin\EditUser;
-use App\Livewire\Admin\Feedbacks;
 use App\Livewire\Admin\AllServers;
-use App\Livewire\Admin\CreatePlan;
-use App\Livewire\Admin\CreateUser;
-use App\Livewire\Admin\EditServer;
-use App\Livewire\Admin\VpsServers;
-use App\Livewire\Admin\CreateServer;
-use App\Livewire\Admin\Transactions;
 use App\Livewire\Admin\AllSubServers;
-use App\Livewire\Admin\Notifications;
-use Illuminate\Support\Facades\Route;
-use App\Livewire\Admin\EditVpsServers;
+use App\Livewire\Admin\CreateNotification;
+use App\Livewire\Admin\CreatePlan;
+use App\Livewire\Admin\CreateServer;
 use App\Livewire\Admin\CreateSubServer;
+use App\Livewire\Admin\CreateUser;
 use App\Livewire\Admin\CreateVpsServers;
 use App\Livewire\Admin\EditNotification;
+use App\Livewire\Admin\EditPlan;
+use App\Livewire\Admin\EditServer;
+use App\Livewire\Admin\EditUser;
+use App\Livewire\Admin\EditVpsServers;
+use App\Livewire\Admin\Feedbacks;
+use App\Livewire\Admin\MailManager;
+use App\Livewire\Admin\Notifications;
+use App\Livewire\Admin\TicketMessage;
+use App\Livewire\Admin\Tickets;
+use App\Livewire\Admin\Tos;
+use App\Livewire\Admin\Transactions;
+use App\Livewire\Admin\Users;
+use App\Livewire\Admin\VpsServers;
 use App\Livewire\Admin\VpsServersManager;
-use App\Livewire\Admin\CreateNotification;
-use App\Http\Controllers\admin\DashboardController;
+use Illuminate\Support\Facades\Route;
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -56,4 +62,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/edit-notifications/{notification}', EditNotification::class)->name('admin.edit.notifications');
     
     Route::get('/feedback', Feedbacks::class)->name('admin.feedback');
+    Route::get('/mail-manage', MailManager::class)->name('admin.mail-manage');
+    Route::get('/tos', Tos::class)->name('admin.tos');
+    Route::get('/tickets', Tickets::class)->name('admin.tickets');
+    Route::get('/tickets-details/{ticketId}', TicketMessage::class)->name('admin.tickets.details');
+
 });

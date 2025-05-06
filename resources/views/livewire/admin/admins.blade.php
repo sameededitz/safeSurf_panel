@@ -6,11 +6,10 @@
             <div class="page-title-box">
                 <div class="btn-group float-right">
                     <ol class="breadcrumb hide-phone p-0 m-0">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Plans</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.accounts') }}">Admins</a></li>
                     </ol>
                 </div>
-                <h4 class="page-title">Users</h4>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -20,8 +19,8 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between">
-                    <h4 class="card-title m-10">Users</h4>
-                    <a href="{{ route('admin.create.user') }}" class="btn btn-light waves-effect float-right">Create Plan</a>
+                    <h4 class="card-title m-10">Admin</h4>
+                    <a href="{{ route('admin.create.user') }}" class="btn btn-light waves-effect float-right">Create Admin</a>
                     
             </div>
         </div>

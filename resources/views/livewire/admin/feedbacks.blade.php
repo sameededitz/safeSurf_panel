@@ -6,8 +6,8 @@
                 <div class="page-title-box">
                     <div class="btn-group float-right">
                         <ol class="breadcrumb hide-phone p-0 m-0">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Plans</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.feedback') }}">Feedbacks</a></li>
                         </ol>
                     </div>
                     <h4 class="page-title">Feedbacks</h4>
@@ -20,7 +20,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
-                        <h4 class="card-title m-10">Notifications</h4>
+                        <h4 class="card-title m-10">Feedbacks</h4>
                         {{-- <a href="{{ route('admin.create.notifications') }}" class="btn btn-light waves-effect float-right">Create Notification</a> --}}
                         
                 </div>

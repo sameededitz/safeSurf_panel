@@ -107,7 +107,7 @@
                 </li>
 
                 <li>
-                    <a href="k" class="waves-effect d-flex align-items-center">
+                    <a href="{{ route('admin.tos') }}" class="waves-effect d-flex align-items-center">
                         <iconify-icon icon="material-symbols-light:settings-outline-rounded" class="flex-shrink-0 mr-2"
                             width="20" height="20"></iconify-icon>
                         <span> Settings</span>
