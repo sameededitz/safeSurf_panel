@@ -16,7 +16,7 @@ use Spatie\Sluggable\SlugOptions;
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasSlug,HasApiTokens;
+    use HasFactory, Notifiable, HasSlug, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -80,5 +80,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return !is_null($this->banned_at);
     }
-
 }
