@@ -5,10 +5,10 @@
                 <div class="btn-group float-right">
                     <ol class="breadcrumb hide-phone p-0 m-0">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.notifications') }}">Notifications</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.servers.accounts') }}">VPN Accounts</a></li>
                     </ol>
                 </div>
-                <h4 class="page-title">Notifications</h4>
+                <h4 class="page-title">VPN Accounts</h4>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -18,9 +18,9 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between">
-                <h4 class="card-title m-10">Notifications</h4>
-                <a href="{{ route('admin.create.notifications') }}"
-                    class="btn btn-light waves-effect float-right">Create Notification</a>
+                <h4 class="card-title m-10">All Accounts</h4>
+                <a href="{{ route('admin.create.servers.accounts') }}"
+                    class="btn btn-light waves-effect float-right">Create VPN Account</a>
 
             </div>
         </div>
@@ -47,29 +47,33 @@
             <table id="tech-companies-1" class="table  table-striped">
                 <thead>
                     <tr>
-                        <th data-priority="1">#</th>
-                        <th data-priority="1">Title</th>
-                        <th data-priority="3">Body</th>
+                        <th data-priority="0">#</th>
+                        <th data-priority="1">Name</th>
+                        <th data-priority="2">VPS Server</th>
+                        <th data-priority="3">Type</th>
                         <th data-priority="4">Created at</th>
                         <th data-priority="5">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($notifications as $notification)
+                    @forelse ($vpsaccounts as $accounts)
                         <tr>
-                            <td>{{ $notification->id }}</td>
-                            <td>{{ $notification->title }}</td>
-                            <td>{{ Str::limit($notification->message, 50) }}</td>
-                            <td>{{ $notification->created_at->toFormattedDateString() }}</td>
+                            <td>{{ $accounts->id }}</td>
+                            <td>{{ $accounts->name }}</td>
+                            <td>
+                                @if ($accounts->vpsserver)
+                                    {{ $accounts->vpsserver->name }}
+                                @else
+                                    <span class="text-danger">No VPS Server</span>
+                                @endif
+                            </td>
+                            <td>{{ $accounts->type }}</td>
+                            <td>{{ $accounts->created_at->toFormattedDateString() }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="{{ route('admin.edit.notifications', $notification->id) }}"
-                                        class="btn btn-light-success btn-rounded btn-icon me-1 d-inline-flex align-items-center">
-                                        <iconify-icon icon="lucide:edit" width="20" height="20"></iconify-icon>
-                                    </a>
                                     <button
                                         class="btn btn-light-danger btn-rounded btn-icon d-inline-flex align-items-center"
-                                        wire:click="$js.confirmDelete({{ $notification->id }})">
+                                        wire:click="$js.confirmDelete({{ $accounts->id }})">
                                         <iconify-icon icon="mingcute:delete-2-line" width="20"
                                             height="20"></iconify-icon>
                                     </button>
@@ -82,7 +86,7 @@
             </table>
         </div>
         <div class="mt-2">
-            {{ $notifications->links('components.pagination', data: ['scrollTo' => false]) }}
+            {{-- {{ $users->links('components.pagination', data: ['scrollTo' => false]) }} --}}
         </div>
     </div>
 </div>
@@ -99,7 +103,7 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $wire.deleteNotification(id);
+                    $wire.deleteAccount(id);
                 }
             });
         });

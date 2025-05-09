@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end mb-2">
-                                    <button type="submit" class="btn btn-light waves-effect">Create Plan</button>
+                                    <button type="submit" class="btn btn-light waves-effect">Create Vps Server</button>
                                 </div>
                             </div>
                         </div>

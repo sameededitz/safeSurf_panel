@@ -5,10 +5,12 @@
 
     <!-- LOGO -->
     <div class="topbar-left">
-        <div class="text-center">
+        <div class="text-center" style="
+    margin-top: 20px;">
             <!--<a href="index.html" class="logo"><i class="mdi mdi-assistant"></i>Zoter</a>-->
             <a href="index.html" class="logo">
                 <img src="{{ asset('assets/images/logo-lg.png') }}" alt="" class="logo-large">
+                <h4 class="waves-effect mr-2">Safe Surf</h4>
             </a>
         </div>
     </div>
@@ -39,6 +41,12 @@
                         <iconify-icon icon="ic:baseline-vpn-lock" class="flex-shrink-0 mr-2" width="20"
                             height="20"></iconify-icon>
                         <span> VPN Servers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.servers.accounts') }}" class="waves-effect d-flex align-items-center">
+                        <iconify-icon icon="humbleicons:aid" width="20" class="flex-shrink-0 mr-2" height="20"></iconify-icon>
+                        <span> VPN Accounts</span>
                     </a>
                 </li>
 

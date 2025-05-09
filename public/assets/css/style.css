@@ -2462,9 +2462,11 @@ File: Menu
 .logo {
   line-height: 71px;
 }
-
+.topbar-left .text-center .logo .waves-effect {
+  color: #ffffff;
+}
 .logo-large {
-  height: 18px;
+  height: 25px;
 }
 
 .left .topbar-left {
