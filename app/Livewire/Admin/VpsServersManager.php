@@ -20,12 +20,11 @@ class VpsServersManager extends Component
     public $ramUsage = 'N/A';
     public $diskUsage = 'N/A';
     public $isLoading = false;
-
-    public $wireguardStatus = 'Unknown';
     public $wireguardConnectedUsers = 0;
     public $ikev2Status = 'Unknown';
     public $ikev2ConnectedUsers = 0;
-
+    public $totalConnectedUsers = 0;
+    public $wireguardStatus = 'Unknown';
     public $connectedUsers = [];
     public $vpnTypeFilter = 'all';
 
@@ -96,6 +95,16 @@ HTML;
             $ssh->disconnect();
         } finally {
             $this->isLoading = false;
+        }
+    }
+    private function fetchWireguardStatus($ssh)
+    {
+        try {
+            $status = trim($ssh->exec("systemctl is-active wg-quick@wg0"));
+            $this->wireguardStatus = ($status === 'active') ? 'Running' : 'Not Running';
+        } catch (\Exception $e) {
+            Log::channel('ssh')->error("Error fetching WireGuard status: " . $e->getMessage());
+            $this->wireguardStatus = 'Error';
         }
     }
 
@@ -246,17 +255,6 @@ HTML;
         return $sftp;
     }
 
-    private function fetchWireguardStatus($ssh)
-    {
-        try {
-            $status = trim($ssh->exec("systemctl is-active wg-quick@wg0"));
-            $this->wireguardStatus = ($status === 'active') ? 'Running' : 'Not Running';
-        } catch (\Exception $e) {
-            Log::channel('ssh')->error("Error fetching WireGuard status: " . $e->getMessage());
-            $this->wireguardStatus = 'Error';
-        }
-    }
-
     private function fetchIkev2Status($ssh)
     {
         try {
@@ -313,10 +311,10 @@ HTML;
 
             $this->wireguardConnectedUsers = $data['wireguard_connected'] ?? 0;
             $this->ikev2ConnectedUsers = $data['ikev2_connected'] ?? 0;
+            $this->totalConnectedUsers = $data['total_connected'] ?? 0;
         } catch (\Exception $e) {
             $this->connectedUsers = null;
             $this->ikev2ConnectedUsers = 'Error';
-            $this->wireguardConnectedUsers = 'Error';
             $this->dispatch('sweetToast', type: 'error', message: $e->getMessage(), title: 'Error!');
             Log::channel('ssh')->error("Error fetching {$this->server->ip_address} server VPN connected users: " . $e->getMessage());
         }
@@ -356,7 +354,7 @@ HTML;
     private function getSecondScript()
     {
         // The script as a string variable
-        $filePath = storage_path('app/private/scripts/setup-vpn-api.sh');
+        $filePath = storage_path('app/private/scripts/wireguard-ikev2-apis copy.sh');
 
         if (!file_exists($filePath)) {
             throw new \Exception("Api Script not found.");

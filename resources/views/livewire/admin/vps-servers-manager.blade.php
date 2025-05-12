@@ -113,6 +113,86 @@
             </div>
         </div>
     </div>
+    <div class="row" wire:init="fetchConnectedUsers">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-right" style="padding: 10px;">
+            <button type="button" wire:click="fetchConnectedUsers"
+                class="btn btn-outline-info d-flex align-items-center justify-content-center float-right gap-2">
+
+                <iconify-icon icon="radix-icons:reload" width="24" height="24" wire:loading.remove
+                    wire:target="fetchConnectedUsers" class="transition-all duration-300"></iconify-icon>
+
+                <iconify-icon icon="radix-icons:reload" width="24" height="24" wire:loading
+                    wire:target="fetchConnectedUsers" class="animate-spin transition-all duration-300"></iconify-icon>
+
+                <span wire:loading.remove wire:target="fetchConnectedUsers">
+                    Fetch Connected Users
+                </span>
+
+                <span wire:loading wire:target="fetchConnectedUsers">
+                    Loading...
+                </span>
+
+            </button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title"><h3>Connected Users</h3></div>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between mb-3">
+                <div class="d-flex flex-row">
+                    <div>
+                        <select class="form-control" wire:model="vpnTypeFilter">
+                            <option value="all">All VPN Types</option>
+                            <option value="wireguard">WireGuard</option>
+                            <option value="ikev2">IKEv2</option>
+                            <option value="openvpn">OpenVPN</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table id="tech-companies-1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>IP Address</th>
+                        <th>Uptime</th>
+                        <th>VPN Type</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $filteredUsers = collect($connectedUsers)->filter(function ($user) use ($vpnTypeFilter) {
+                            return $vpnTypeFilter === 'all' || $user['vpn_type'] === $vpnTypeFilter;
+                        });
+                    @endphp
+
+                    @forelse ($filteredUsers as $index => $user)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ ucfirst(preg_replace('/_[^_]+$/', '', $user['name'])) }}</td>
+                            <td>{{ $user['ip'] }}</td>
+                            <td>{{ $user['uptime'] }}</td>
+                            <td>{{ ucfirst($user['vpn_type']) }}</td>
+                            <td>
+                                <a href=""
+                                    class="btn btn-light-info btn-rounded btn-icon me-1 d-inline-flex align-items-center">
+                                    <iconify-icon icon="ic:round-manage-accounts" width="20" height="20"></iconify-icon>
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center">No connected users found</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <div class="row mb-3">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-right">
@@ -139,15 +219,12 @@
 
     <div class="row mb-3">
         <div class="col-md-12">
-            <div class="card bg-dark text-white">
+            <div class="card bg-dark text-white terminal">
                 <div class="card-header">
                     Script Output
                 </div>
-                <div class="card-body">
-                    <pre id="script-output" class="mb-0 terminal-output" wire:stream="output">
-                        {{ $output }}
-                    </pre>
-                </div>
+                <pre id="script-output" class="terminal-output text-white text-left px-3 py-2" wire:stream="output"
+                    style="white-space: pre-wrap; overflow-wrap: break-word; word-wrap">{{ $output }}</pre>
             </div>
         </div>
     </div>
@@ -155,6 +232,11 @@
 </div>
 @script
     <script>
+        // $(document).ready(function () {
+        //           if (!$.browser.webkit) {
+        //               $('.wrapper').html('<p>Sorry! Non webkit users. :(</p>');
+        //           }
+        //       });
         function extractNumber(value) {
             return parseFloat(value.replace(/[^\d.]/g, '')) || 0;
         }
@@ -228,6 +310,7 @@
             chart.render();
             return chart;
         }
+
 
         var cpuChart = createGaugeChart("#cpu-chart", 0, "CPU Usage");
         var ramChart = createGaugeChart("#ram-chart", 0, "RAM Usage");

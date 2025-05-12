@@ -6,7 +6,7 @@
             <div class="card-body">
 
                 <div class="text-center">
-                    <a href="index.html" class="logo logo-admin"><img src="assets/images/e-logo.png" height="20" alt="logo"></a>
+                    <a href="index.html" class="logo logo-admin"><img src="{{ asset('assets/images/login-logo.png') }}" height="80" alt="logo"></a>
                 </div>
 
                 <div class="px-3 pb-3">

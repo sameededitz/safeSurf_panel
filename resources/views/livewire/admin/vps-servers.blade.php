@@ -44,13 +44,13 @@
                 <thead>
                     <tr>
                         <th data-priority="1">#</th>
-                        <th data-priority="1">Name</th>
+                        <th data-priority="2">Name</th>
                         <th data-priority="3">IP Address</th>
-                        <th data-priority="1">Username</th>
-                        <th data-priority="3">Port</th>
-                        <th data-priority="3">Domain</th>
-                        <th data-priority="3">Status</th>
-                        <th data-priority="3">Actions</th>
+                        <th data-priority="4">Username</th>
+                        <th data-priority="5">Port</th>
+                        <th data-priority="6">Domain</th>
+                        <th data-priority="7">Status</th>
+                        <th data-priority="8">Actions</th>
                     </tr>
                 </thead>
                 <tbody>

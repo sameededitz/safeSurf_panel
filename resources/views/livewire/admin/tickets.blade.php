@@ -5,10 +5,10 @@
                 <div class="btn-group float-right">
                     <ol class="breadcrumb hide-phone p-0 m-0">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Plans</a></li>
+                        <li class="breadcrumb-item"><a href="#">Tickets</a></li>
                     </ol>
                 </div>
-                <h4 class="page-title">Plans</h4>
+                <h4 class="page-title">Tickets</h4>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -17,7 +17,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Plans</h4>
+            <h4 class="card-title">Tickets</h4>
         </div>
         <div class="card-body">
             <div class="d-flex justify-content-between mb-2">
