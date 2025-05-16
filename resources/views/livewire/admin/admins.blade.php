@@ -20,7 +20,7 @@
         <div class="card-header">
             <div class="d-flex justify-content-between">
                     <h4 class="card-title m-10">Admin</h4>
-                    <a href="{{ route('admin.create.user') }}" class="btn btn-light waves-effect float-right">Create Admin</a>
+                     <a href="{{ route('admin.create.admin.account') }}" class="btn btn-light waves-effect float-right">Create Admin</a>
                     
             </div>
         </div>

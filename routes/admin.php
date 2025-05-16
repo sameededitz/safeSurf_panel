@@ -5,6 +5,7 @@ use App\Livewire\Admin\Admins;
 use App\Livewire\Admin\AllPlans;
 use App\Livewire\Admin\AllServers;
 use App\Livewire\Admin\AllSubServers;
+use App\Livewire\Admin\CreateAdmin;
 use App\Livewire\Admin\CreateNotification;
 use App\Livewire\Admin\CreatePlan;
 use App\Livewire\Admin\CreateServer;
@@ -62,6 +63,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/edit-user/{user}', EditUser::class)->name('admin.edit.user');
     
     Route::get('/admins', Admins::class)->name('admin.accounts'); 
+     Route::get('/create-admins', CreateAdmin::class)->name('admin.create.admin.account'); 
     
     Route::get('/notifications', Notifications::class)->name('admin.notifications');
     Route::get('/create-notifications', CreateNotification::class)->name('admin.create.notifications');
