@@ -8,6 +8,11 @@
                 <div class="text-center">
                     <a href="index.html" class="logo logo-admin"><img src="{{ asset('assets/images/login-logo.png') }}" height="80" alt="logo"></a>
                 </div>
+                @if ($errors->any())
+                                    @foreach ($errors->all() as $error)
+                                        <x-alert type="danger" :message="$error" />
+                                    @endforeach
+                                @endif
 
                 <div class="px-3 pb-3">
                     <form class="form-horizontal m-t-20" wire:submit.prevent="login">

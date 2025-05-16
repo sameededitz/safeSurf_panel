@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthApiController;
 use App\Http\Controllers\VerifyController;
 use App\Livewire\Actions\Logout;
 use App\Livewire\Auth\Login;

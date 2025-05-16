@@ -121,6 +121,16 @@
                         <span> Settings</span>
                     </a>
                 </li>
+                  <li>
+                    <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect d-flex align-items-center">
+                        <iconify-icon icon="material-symbols:logout" class="flex-shrink-0 mr-2"
+                            width="20" height="20"></iconify-icon>
+                        <span> Logout</span>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
 
 
 
