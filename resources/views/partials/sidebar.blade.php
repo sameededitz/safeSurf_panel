@@ -10,7 +10,7 @@
             <!--<a href="index.html" class="logo"><i class="mdi mdi-assistant"></i>Zoter</a>-->
             <a href="index.html" class="logo">
                 <img src="{{ asset('assets/images/logo-lg.png') }}" alt="" class="logo-large">
-                <h4 class="waves-effect mr-2">Safe Surf</h4>
+                <h4 class="waves-effect mr-2">Safesurf.pro</h4>
             </a>
         </div>
     </div>

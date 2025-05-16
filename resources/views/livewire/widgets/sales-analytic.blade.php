@@ -144,7 +144,7 @@
                     hollow: {
                         margin: 0,
                         size: "70%",
-                        background: "#1E1E2F"
+                        background: "#FFFFFF"
                     },
                     track: {
                         background: "#2A2A3F",
@@ -160,13 +160,13 @@
                     dataLabels: {
                         name: {
                             fontSize: "16px",
-                            color: "#fff",
+                            color: "#1E1E2F",
                             offsetY: 5
                         },
                         value: {
                             offsetY: 20,
                             fontSize: "30px",
-                            color: "#fff",
+                            color: "#1E1E2F",
                             formatter: function(e) {
                                 return e + "%"
                             }

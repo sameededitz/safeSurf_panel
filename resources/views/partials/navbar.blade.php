@@ -1,4 +1,4 @@
-<div class="topbar">
+{{-- <div class="topbar">
 
     <nav class="navbar-custom">
         <ul class="list-inline float-right mb-0">
@@ -40,4 +40,4 @@
 
     </nav>
 
-</div>
+</div> --}}
