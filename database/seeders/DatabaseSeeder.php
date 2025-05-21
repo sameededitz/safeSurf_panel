@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
         User::factory()->admin()->create();
         User::factory()->user()->create();
         
-        Ticket::factory(2)->create();
+        // Ticket::factory(2)->create();
     }
 }
