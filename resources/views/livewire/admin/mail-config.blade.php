@@ -57,7 +57,7 @@
                                 <div class="form-group row">
                                     <label for="example-price-input" class="col-sm-2 col-form-label">Mail Password</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" type="number" placeholder="Enter the Port"
+                                        <input class="form-control" type="text" placeholder="Enter the Port"
                                             id="example-price-input" wire:model="mail_password">
                                     </div>
                                 </div>
