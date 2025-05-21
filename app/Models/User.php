@@ -4,14 +4,15 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Purchase;
-use App\Notifications\CustomEmailVerifyNotification;
+use Spatie\Sluggable\HasSlug;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Sluggable\SlugOptions;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\CustomEmailVerifyNotification;
+use App\Notifications\CustomResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -63,14 +64,26 @@ class User extends Authenticatable implements MustVerifyEmail
             ->saveSlugsTo('slug');
     }
 
-    // public function sendEmailVerificationNotification()
-    // {
-    //     $this->notify(new CustomEmailVerifyNotification);
-    // }
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new CustomEmailVerifyNotification);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CustomResetPasswordNotification($token));
+    }
+    
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
     public function purchases()
     {
         return $this->hasMany(Purchase::class);
     }
+
     public function activePlan()
     {
         return $this->hasOne(Purchase::class)->where('status', 'active')->where('end_date', '>', now())->latest();

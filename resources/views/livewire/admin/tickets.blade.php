@@ -50,36 +50,14 @@
                         <th data-priority="1">User</th>
                         <th data-priority="3">Subject</th>
                         <th data-priority="1">Status</th>
+                        <th data-priority="1">Priority</th>
+                        <th data-priority="1">Department</th>
                         <th data-priority="3">Created</th>
                         <th data-priority="3">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @forelse ($plans as $plan)
-                    <tr>
-                        <td>{{ $plan->id }}</td>
-                        <td>{{ $plan->name }}</td>
-                        <td>${{ number_format($plan->price, 2) }}</td>
-                        <td>{{ $plan->duration }} {{ ucfirst($plan->duration_unit) }}</td>
-                        <td>{{ $plan->created_at->toFormattedDateString() }}</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <a href="{{ route('admin.edit.plan', $plan->id) }}"
-                                    class="btn btn-light-success btn-rounded btn-icon me-1 d-inline-flex align-items-center">
-                                    <iconify-icon icon="lucide:edit" width="20"
-                                        height="20"></iconify-icon>
-                                </a>
-                                <button class="btn btn-light-danger btn-rounded btn-icon d-inline-flex align-items-center"
-                                wire:click="$js.confirmDelete({{ $plan->id }})">
-                                <iconify-icon icon="mingcute:delete-2-line" width="20"
-                                    height="20"></iconify-icon>
-                            </button>
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                        
-                    @endforelse --}} @forelse ($tickets as $ticket)
+                    @forelse ($tickets as $ticket)
                         <tr>
                             <td>{{ $ticket->id }}</td>
                             <td>{{ $ticket->user->name }}</td>
@@ -94,6 +72,22 @@
                                     <span class="badge bg-danger">Closed</span>
                                 @else
                                     <span class="badge bg-warning">Pending</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($ticket->priority == 'high')
+                                    <span class="badge bg-danger">High</span>
+                                @elseif ($ticket->priority == 'medium')
+                                    <span class="badge bg-warning">Medium</span>
+                                @else
+                                    <span class="badge bg-success">Low</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($ticket->department)
+                                    {{ Str::title($ticket->department) }}
+                                @else
+                                    <span class="badge bg-secondary">N/A</span>
                                 @endif
                             </td>
                             <td>{{ $ticket->created_at->toFormattedDateString() }}</td>
@@ -135,7 +129,7 @@
             </table>
         </div>
         <div class="mt-2">
-            {{-- {{ $plans->links('components.pagination', data: ['scrollTo' => false]) }} --}}
+            {{ $tickets->links('components.pagination', data: ['scrollTo' => false]) }}
         </div>
     </div>
 </div>

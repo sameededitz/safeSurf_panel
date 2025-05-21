@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\PurchaseResource;
 use Illuminate\Support\Facades\Validator;
 
 class PurchaseController extends Controller
@@ -69,7 +70,7 @@ class PurchaseController extends Controller
         return response()->json([
             'status' => true,
             'message' => $message,
-            'purchase' => $purchase->load('plan')
+            'purchase' => new PurchaseResource($purchase->load('plan', 'user')),
         ], 200);
     }
 
@@ -83,17 +84,32 @@ class PurchaseController extends Controller
             ->with('plan')
             ->first();
 
-        if (!$activePlan) {
+        return response()->json([
+            'status' => true,
+            'purchase' => $activePlan ? new PurchaseResource($activePlan) : null,
+        ], 200);
+    }
+
+    public function viewPurchase($id)
+    {
+        /** @var \App\Models\User $user **/
+        $user = Auth::user();
+        $purchase = $user->purchases()
+            ->where('id', $id)
+            ->with('plan', 'user')
+            ->first();
+
+        if (!$purchase) {
             return response()->json([
                 'status' => false,
-                'message' => 'No active plan found.'
+                'message' => 'Purchase not found.'
             ], 404);
         }
 
         return response()->json([
             'status' => true,
-            'message' => 'Active plan found.',
-            'plan' => $activePlan
+            'message' => 'Purchase found.',
+            'purchase' => new PurchaseResource($purchase),
         ], 200);
     }
 
@@ -101,10 +117,10 @@ class PurchaseController extends Controller
     {
         /** @var \App\Models\User $user **/
         $user = Auth::user();
-        $purchases = $user->purchases()->with('plan')->latest()->get();
+        $purchases = $user->purchases()->with('plan', 'user')->latest()->get();
         return response()->json([
             'status' => true,
-            'purchases' => $purchases
+            'purchases' => PurchaseResource::collection($purchases),
         ], 200);
     }
 

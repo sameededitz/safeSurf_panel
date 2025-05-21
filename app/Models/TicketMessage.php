@@ -29,6 +29,7 @@ class TicketMessage extends Model implements HasMedia
     {
         $this->addMediaCollection('attachments')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/jpg'])
+            ->onlyKeepLatest(5)
             ->useDisk('media');
     }
 }

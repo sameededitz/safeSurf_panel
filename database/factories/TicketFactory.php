@@ -17,9 +17,11 @@ class TicketFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
+            'user_id' => '2',
             'subject' => $this->faker->sentence(),
             'status' => $this->faker->randomElement(['open', 'closed', 'pending']),
+            'department' => $this->faker->randomElement(['support', 'billing', 'sales']),
+            'priority' => $this->faker->randomElement(['low', 'medium', 'high']),
         ];
     }
 }

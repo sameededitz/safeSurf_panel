@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Jobs\SendEmailVerification;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,7 @@ class AuthController extends Controller
             'role' => 'user',
         ]);
 
-        // SendEmailVerification::dispatch($user)->delay(now()->addSeconds(5));
+        SendEmailVerification::dispatch($user)->delay(now()->addSeconds(5));
 
         return response()->json([
             'status' => true,
