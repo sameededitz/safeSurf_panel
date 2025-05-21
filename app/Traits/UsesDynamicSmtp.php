@@ -17,8 +17,8 @@ trait UsesDynamicSmtp
             Config::set('mail.mailers.smtp.port', $smtp->port);
             Config::set('mail.mailers.smtp.username', $smtp->username);
             Config::set('mail.mailers.smtp.password', $smtp->password);
-            Config::set('mail.from.address', $smtp->from_address);
-            Config::set('mail.from.name', $smtp->from_name);
+            Config::set('mail.from.address', $smtp->address);
+            Config::set('mail.from.name', $smtp->name);
         } else {
             Log::error('SMTP settings not found in the database.');
         }
