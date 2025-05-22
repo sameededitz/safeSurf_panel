@@ -54,9 +54,9 @@ class PlanSeeder extends Seeder
             ['title' => 'Dedicated IP', 'enabled' => true],
             ['title' => 'Malware Protection', 'enabled' => true],
             ['title' => 'Ad Blocker', 'enabled' => true],
-            ['title' => 'Split Tunneling', 'enabled' => true],
-            ['title' => 'Kill Switch', 'enabled' => true],
             ['title' => 'No Logs Policy', 'enabled' => true],
+            ['title' => 'Split Tunneling', 'enabled' => false],
+            ['title' => 'Kill Switch', 'enabled' => false],
         ];
         foreach ($premiumFeatures as $feature) {
             $premium->features()->create($feature);
