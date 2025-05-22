@@ -48,10 +48,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="example-price-input" class="col-sm-2 col-form-label">Price</label>
+                                    <label for="example-price-input" class="col-sm-2 col-form-label">Original Price</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" type="number" placeholder="Enter the Price"
-                                            id="example-price-input" wire:model='price'>
+                                        <input class="form-control" type="number" placeholder="Enter the Original Price"
+                                            id="example-price-input" wire:model='original_price'>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-price-input" class="col-sm-2 col-form-label">Discount Price</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="number" placeholder="Enter the Discount Price"
+                                            id="example-price-input" wire:model='discount_price'>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -73,6 +80,31 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Features</label>
+                                    <div class="col-sm-10">
+                                        @foreach ($features as $index => $feature)
+                                            <div class="d-flex mb-2">
+                                                <input type="text" class="form-control mr-2"
+                                                    placeholder="Feature title"
+                                                    wire:model="features.{{ $index }}.title">
+                                                <select class="form-control mr-2"
+                                                    wire:model="features.{{ $index }}.enabled">
+                                                    <option value="1">Enabled</option>
+                                                    <option value="0">Disabled</option>
+                                                </select>
+                                                <button type="button" class="btn btn-danger"
+                                                    wire:click="removeFeature({{ $index }})">
+                                                    &times;
+                                                </button>
+                                            </div>
+                                        @endforeach
+                                        <button type="button" class="btn btn-sm btn-info mt-2" wire:click="addFeature">
+                                            + Add Feature
+                                        </button>
+                                    </div>
+                                </div>
+
                                 <div class="d-flex justify-content-end mb-2">
                                     <button type="submit" class="btn btn-light waves-effect">Create Plan</button>
                                 </div>
@@ -88,15 +120,19 @@
 </div>
 @script
     <script>
-        $wire.on('snackbar', (event) => {
-            showSnackbar(event.message, event.type);
+        $wire.on('sweetAlert', (event) => {
+            Swal.fire({
+                title: event.title,
+                text: event.message,
+                icon: event.type,
+                timer: 2000,
+                showConfirmButton: false
+            });
         });
         $wire.on('redirect', (event) => {
             setTimeout(() => {
                 window.location.href = event.url;
-            }, 1000);
+            }, 2500);
         });
     </script>
 @endscript
-
-

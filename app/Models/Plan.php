@@ -16,7 +16,8 @@ class Plan extends Model
         'name',
         'slug',
         'description',
-        'price',
+        'original_price',
+        'discount_price',
         'duration',
         'duration_unit',
     ];
@@ -24,6 +25,11 @@ class Plan extends Model
     public function purchases(): HasMany
     {
         return $this->hasMany(Purchase::class);
+    }
+
+    public function features(): HasMany
+    {
+        return $this->hasMany(PlanFeature::class);
     }
 
     public function getSlugOptions(): SlugOptions

@@ -40,21 +40,22 @@ class AllPlans extends Component
     public function render()
     {
         $plans = Plan::query()
-        ->when($this->search, function ($query) {
-            $query->where('name', 'like', '%' . $this->search . '%');
-        })
-        ->when($this->priceFilter, function ($query) {
-            $query->where('price', $this->priceFilter);
-        })
-        ->when($this->durationFilter, function ($query) {
-            $query->where('duration', $this->durationFilter);
-        })
-        ->orderBy('created_at', 'desc')
-        ->paginate($this->perPage);
-        // dd($plans);
+            ->with('features')
+            ->when($this->search, function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            })
+            ->when($this->priceFilter, function ($query) {
+                $query->where('price', $this->priceFilter);
+            })
+            ->when($this->durationFilter, function ($query) {
+                $query->where('duration', $this->durationFilter);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate($this->perPage);
+
         /** @disregard @phpstan-ignore-line */
         return view('livewire.admin.all-plans', compact('plans'))
-        ->extends('layouts.admin')
-        ->section('content');
+            ->extends('layouts.admin')
+            ->section('content');
     }
 }

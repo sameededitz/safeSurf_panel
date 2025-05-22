@@ -23,6 +23,15 @@ class PlanResource extends JsonResource
             'duration' => $this->duration,
             'duration_unit' => $this->duration_unit,
             'created_at' => $this->created_at,
+            'features' => $this->whenLoaded('features', function () {
+                return $this->features->map(function ($feature) {
+                    return [
+                        'id' => $feature->id,
+                        'title' => $feature->title,
+                        'enabled' => $feature->enabled,
+                    ];
+                });
+            }),
         ];
     }
 }
