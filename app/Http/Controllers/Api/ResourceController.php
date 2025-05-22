@@ -8,6 +8,7 @@ use App\Models\VpsServer;
 use App\Models\UserFeedback;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PlanResource;
 use Illuminate\Support\Facades\Http;
 use App\Http\Resources\ServerResource;
 use App\Http\Resources\VpsServerResource;
@@ -52,7 +53,7 @@ class ResourceController extends Controller
 
         return response()->json([
             'status' => true,
-            'plans' => $plans,
+            'plans' => PlanResource::collection($plans),
         ]);
     }
 
