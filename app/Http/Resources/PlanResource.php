@@ -19,7 +19,8 @@ class PlanResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'description' => $this->description,
-            'price' => $this->price,
+            'original_price' => $this->original_price,
+            'discount_price' => $this->discount_price,
             'duration' => $this->duration,
             'duration_unit' => $this->duration_unit,
             'features' => $this->whenLoaded('features', function () {
