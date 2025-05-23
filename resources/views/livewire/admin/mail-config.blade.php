@@ -90,10 +90,14 @@
 </div>
 @script
     <script>
-        $wire.on('redirect', (event) => {
-            setTimeout(() => {
-                window.location.href = event.url;
-            }, 1000);
+        $wire.on('sweetAlert', (event) => {
+            Swal.fire({
+                title: event.title,
+                text: event.message,
+                icon: event.type,
+                timer: 2000,
+                showConfirmButton: false
+            });
         });
     </script>
 @endscript
