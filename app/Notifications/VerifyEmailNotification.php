@@ -4,12 +4,12 @@ namespace App\Notifications;
 
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use App\Mail\CustomEmailVerifyMail;
+use App\Mail\VerifyEmailMail;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Notifications\Notification;
 
-class CustomEmailVerifyNotification extends Notification
+class VerifyEmailNotification extends Notification
 {
     use Queueable;
 
@@ -36,14 +36,15 @@ class CustomEmailVerifyNotification extends Notification
      */
     public function toMail(object $notifiable)
     {
-        $verficationUrl = $this->verificationUrl($notifiable);
-        return (new CustomEmailVerifyMail($notifiable,$verficationUrl));
+        /** @var string $verificationUrl */
+        $verificationUrl = $this->verificationUrl($notifiable);
+        return (new VerifyEmailMail($notifiable, $verificationUrl));
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @return array<string, mixed>
+     * @return string
      */
     protected function verificationUrl($notifiable)
     {

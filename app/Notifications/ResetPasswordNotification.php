@@ -2,10 +2,10 @@
 
 namespace App\Notifications;
 
-use App\Mail\CustomResetPassword;
+use App\Mail\ResetPasswordMail;
 use Illuminate\Notifications\Notification;
 
-class CustomResetPasswordNotification extends Notification
+class ResetPasswordNotification extends Notification
 {
     protected $token;
 
@@ -33,7 +33,7 @@ class CustomResetPasswordNotification extends Notification
     public function toMail($notifiable)
     {
         $resetUrl = $this->resetUrl($notifiable);
-        return (new CustomResetPassword($notifiable, $resetUrl));
+        return (new ResetPasswordMail($notifiable, $resetUrl));
     }
 
     /**

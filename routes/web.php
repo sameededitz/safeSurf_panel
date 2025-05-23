@@ -18,6 +18,12 @@ require __DIR__ . '/admin.php';
 
 Route::get('/log-smtp', [DashboardController::class, 'logSmtp'])->name('log-smtp');
 
+Route::get('/mailable', function () {
+    $user = App\Models\User::find(2);
+
+    return new App\Mail\ResetPasswordMail($user, 'https://example.com/verify-email?email=' . $user->email . '&hash=' . sha1($user->email));
+});
+
 Route::get('/storage-link', function () {
     Artisan::call('storage:link');
     return 'Storage link created';
