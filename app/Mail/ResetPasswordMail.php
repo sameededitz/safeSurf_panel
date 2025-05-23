@@ -32,6 +32,7 @@ class ResetPasswordMail extends Mailable
     {
         return new Envelope(
             subject: 'Reset Password Notification',
+            to: $this->user->email,
         );
     }
 

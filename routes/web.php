@@ -21,7 +21,7 @@ Route::get('/log-smtp', [DashboardController::class, 'logSmtp'])->name('log-smtp
 Route::get('/mailable', function () {
     $user = App\Models\User::find(2);
 
-    return new App\Mail\ResetPasswordMail($user, 'https://example.com/verify-email?email=' . $user->email . '&hash=' . sha1($user->email));
+    return new App\Mail\VerifyEmailMail($user, 'https://example.com/verify-email?email=' . $user->email . '&hash=' . sha1($user->email));
 });
 
 Route::get('/storage-link', function () {

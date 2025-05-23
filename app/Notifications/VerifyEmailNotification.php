@@ -38,7 +38,7 @@ class VerifyEmailNotification extends Notification
     {
         /** @var string $verificationUrl */
         $verificationUrl = $this->verificationUrl($notifiable);
-        return (new VerifyEmailMail($notifiable, $verificationUrl));
+        return new VerifyEmailMail($notifiable, $verificationUrl);
     }
 
     /**

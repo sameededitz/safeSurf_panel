@@ -32,6 +32,7 @@ class VerifyEmailMail extends Mailable
     {
         return new Envelope(
             subject: 'Verify Email Address',
+            to: $this->user->email,
         );
     }
 

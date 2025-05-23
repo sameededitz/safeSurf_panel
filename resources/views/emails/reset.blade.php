@@ -3,7 +3,7 @@
     {{ config('app.name') }} Password Reset
 </h1>
 
-Hello <span style="color: #333; text-transform: capitalize; font-weight: bold;">{{ $user->name }}</span>,
+<span style="color: #333; text-transform: capitalize; font-weight: bold; font-size: 18px;">Hello {{ $user->name }}</span>,
 
 We received a request to reset your password. Click the button below to reset it:
 
