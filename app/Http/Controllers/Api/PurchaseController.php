@@ -38,6 +38,8 @@ class PurchaseController extends Controller
 
         $duration = $plan->duration;
 
+        $price = $plan->discount_price ?? $plan->original_price;
+
         if ($purchase) {
             $newEndDate = $this->calculateExpiration(
                 Carbon::parse($purchase->end_date),
@@ -50,6 +52,7 @@ class PurchaseController extends Controller
                 'plan_id' => $plan->id,
                 'end_date' => $newEndDate,
                 'status' => 'active',
+                'amount_paid' => $purchase->amount_paid + $price,
             ]);
 
             $message = 'Purchase Extended successfully!';
@@ -58,7 +61,7 @@ class PurchaseController extends Controller
             // Create a new purchase
             $purchase = $user->purchases()->create([
                 'plan_id' => $plan->id,
-                'amount_paid' => $plan->price,
+                'amount_paid' => $price,
                 'start_date' => now(),
                 'end_date' => $expiresAt,
                 'status' => 'active',
