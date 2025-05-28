@@ -71,6 +71,10 @@
                             <td>{{ $accounts->created_at->toFormattedDateString() }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
+                                     <a href="{{ route('admin.check.servers.accounts', $accounts->id) }}"
+                                        class="btn btn-light-primary btn-rounded btn-icon d-inline-flex align-items-center">
+                                        <iconify-icon icon="tdesign:browse" width="20" height="20"></iconify-icon>
+                                    </a>
                                     <button
                                         class="btn btn-light-danger btn-rounded btn-icon d-inline-flex align-items-center"
                                         wire:click="$js.confirmDelete({{ $accounts->id }})">
