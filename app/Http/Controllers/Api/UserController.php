@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Models\Server;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -22,7 +23,24 @@ class UserController extends Controller
             'user' => new UserResource($user)
         ], 200);
     }
-    
+
+    public function stats()
+    {
+        /** @var \App\Models\User $user **/
+        $user = Auth::user();
+
+        $servers = Server::count();
+
+        return response()->json([
+            'status' => true,
+            'stats' => [
+                'tickets' => $user->tickets()->count(),
+                'purchases' => $user->purchases()->count(),
+                'servers' => $servers,
+            ]
+        ], 200);
+    }
+
     public function updateProfile(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -50,7 +68,7 @@ class UserController extends Controller
             'user' => new UserResource($user),
         ], 200);
     }
-    
+
     public function updatePassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -99,5 +117,4 @@ class UserController extends Controller
             'message' => 'Failed to delete account',
         ], 500);
     }
-    
 }
