@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Plan;
+use App\Models\Purchase;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Models\UserFeedback;
@@ -15,11 +16,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->admin()->create();
-        User::factory()->user()->create();
+        // User::factory()->admin()->create();
+        // User::factory()->user()->create();
         
-        $this->call([
-            PlanSeeder::class,
-        ]);
+        // $this->call([
+        //     PlanSeeder::class,
+        // ]);
+        Purchase::factory(10)->create();
     }
 }

@@ -95,7 +95,7 @@
                                 <div class="d-flex align-items-center gap-2">
                                     @if ($ticket->status !== 'closed')
                                         <button type="button"
-                                            wire:click="$js.updateStatus({{ $ticket->id }}, 'close')"
+                                            wire:click="$js.updateStatus({{ $ticket->id }}, 'closed')"
                                             class="btn btn-outline-danger d-flex align-items-center justify-content-center">
                                             <Iconify-icon icon="material-symbols:close-rounded" width="20"
                                                 height="20"></Iconify-icon>
@@ -135,18 +135,22 @@
 </div>
 @script
     <script>
-        $js('confirmDelete', (id) => {
+        $js('updateStatus', (id, status) => {
+            let actionText = status === 'open' ? 'Reopen' : (status === 'pending' ? 'mark as pending' : 'close');
+            let actionBtnText = status === 'open' ? 'Yes, Reopen it!' : (status === 'pending' ?
+                'Yes, Mark as Pending!' : 'Yes, Close it!');
+
             Swal.fire({
-                title: 'Are you sure?',
+                title: `Are you sure you want to ${actionText} this Ticket?`,
                 text: 'You won\'t be able to revert this!',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: actionBtnText
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $wire.deletePlan(id);
+                    $wire.updateStatus(id, status);
                 }
             });
         });
@@ -160,5 +164,5 @@
                 showConfirmButton: false
             });
         });
-    </script>
+    </script>  
 @endscript

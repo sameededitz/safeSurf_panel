@@ -26,6 +26,8 @@ class UserManager extends Component
         ]);
 
         $plan = Plan::findOrFail($this->selectedPlan);
+        $prices = $plan->discount_price ? $plan->discount_price : $plan->original_price;
+        // dd($plan, $prices);
         $activePurchase = $this->user->activePlan;
 
         if ($activePurchase) {
@@ -33,7 +35,7 @@ class UserManager extends Component
 
             $activePurchase->update([
                 'plan_id' => $plan->id,
-                'amount_paid' => $activePurchase->amount_paid + $plan->price,
+                'amount_paid' => $activePurchase->amount_paid + $prices,
                 'end_date' => $newExpiresAt
             ]);
 
@@ -43,7 +45,7 @@ class UserManager extends Component
 
             $this->user->purchases()->create([
                 'plan_id' => $plan->id,
-                'amount_paid' => $plan->price,
+                'amount_paid' => $prices,
                 'start_date' => now(),
                 'end_date' => $expiresAt,
                 'status' => 'active',

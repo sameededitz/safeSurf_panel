@@ -5,6 +5,7 @@ use App\Livewire\Admin\Admins;
 use App\Livewire\Admin\AllPlans;
 use App\Livewire\Admin\AllServers;
 use App\Livewire\Admin\AllSubServers;
+use App\Livewire\Admin\CheckServerAccount;
 use App\Livewire\Admin\CreateAdmin;
 use App\Livewire\Admin\CreateNotification;
 use App\Livewire\Admin\CreatePlan;
@@ -50,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/create-server', CreateServer::class)->name('admin.create.server');
     Route::get('/edit-server/{server}', EditServer::class)->name('admin.edit.server');
     Route::get('/servers-accounts', ServersAccounts::class)->name('admin.servers.accounts');
+    Route::get('/check-servers-accounts/{vpsAccount}', CheckServerAccount::class)->name('admin.check.servers.accounts');
     Route::get('/create-servers-accounts', CreateServersAccounts::class)->name('admin.create.servers.accounts');
 
     Route::get('/subServers/{server}', AllSubServers::class)->name('admin.subServers');
