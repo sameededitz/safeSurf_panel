@@ -95,7 +95,7 @@
                                 <div class="d-flex align-items-center gap-2">
                                     @if ($ticket->status !== 'closed')
                                         <button type="button"
-                                            wire:click="$js.updateStatus({{ $ticket->id }}, 'close')"
+                                            wire:click="$js.updateStatus({{ $ticket->id }}, 'closed')"
                                             class="btn btn-outline-danger d-flex align-items-center justify-content-center">
                                             <Iconify-icon icon="material-symbols:close-rounded" width="20"
                                                 height="20"></Iconify-icon>
