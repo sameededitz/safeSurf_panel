@@ -32,17 +32,15 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="form-group row">
-                                    <label for="example-text-input" class="col-sm-2 col-form-label">Privacy Policy</label>
-                                    <div class="col-sm-10">
-                                        <textarea name="privacy_policy" id="myeditorinstance" wire:model="privacy_policy" class="form-control tinymce-editor"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="example-text-input" class="col-sm-2 col-form-label">Terms And Conditions</label>
-                                    <div class="col-sm-10">
-                                        <textarea id="tosEditor" name="tos" wire:model="tos" class="form-control tinymce-editor"></textarea>
-                                    </div>
+                                <div class="row gy-3">
+                            <div class="col-12" wire:ignore>
+                                <label class="form-label" for="privacy_policy">Privacy Policy</label>
+                                <textarea name="privacy_policy" id="myeditorinstance" wire:model="privacy_policy" class="form-control tinymce-editor"></textarea>
+                            </div>
+                            <div class="col-12" wire:ignore>
+                                <label class="form-label" for="terms_of_service">Terms of Service</label>
+                                <textarea id="tosEditor" name="tos" wire:model="tos" class="form-control tinymce-editor"></textarea>
+                            </div>
                                 </div>
                                 <div class="d-flex justify-content-end mb-2">
                                     <button type="submit" class="btn btn-light waves-effect">Save</button>
