@@ -150,7 +150,7 @@ class TicketDetails extends Component
 
     public function render()
     {
-        $ticket = Ticket::with(['user:id,name', 'messages'])
+        $ticket = Ticket::with(['user:id,name', 'messages.user'])
             ->findOrFail($this->ticketId);
 
         /** @disregard @phpstan-ignore-line */
