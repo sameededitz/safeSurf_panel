@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Admin;
 
-use App\Jobs\SendEmailVerification; // Ensure this job exists in the specified namespace
 use App\Models\Plan;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Carbon;
+use App\Jobs\SendPasswordReset;
+use Illuminate\Support\Facades\Password;
+use App\Jobs\SendEmailVerification; // Ensure this job exists in the specified namespace
 
 class UserManager extends Component
 {
@@ -15,7 +17,7 @@ class UserManager extends Component
 
     public function mount(User $user)
     {
-        $this->user = $user->load(['purchases.plan', 'activePlan.plan']);
+        $this->user = $user->load(['purchases.plan', 'activePlan.plan', 'devices.token']);
         $this->plans = Plan::all();
     }
 
@@ -91,6 +93,20 @@ class UserManager extends Component
         }
     }
 
+    public function sendPasswordResetLink()
+    {
+        if ($this->user->hasVerifiedEmail()) {
+            $token = Password::createToken($this->user);
+            SendPasswordReset::dispatch($this->user, $token)->delay(now()->addSeconds(5));
+            $this->user->tokens()->delete(); // Revoke all tokens
+            $this->user->devices()->delete(); // Revoke all devices
+            $this->user->refresh();
+            $this->dispatch('sweetAlert', title: 'Success', message: 'Password reset link sent successfully.', type: 'success');
+        } else {
+            $this->dispatch('sweetAlert', title: 'Error', message: 'User email is not verified.', type: 'error');
+        }
+    }
+
     public function banUser($reason = null)
     {
         if ($this->user->isBanned()) {
@@ -120,6 +136,32 @@ class UserManager extends Component
         $this->user->delete();
         $this->dispatch('sweetAlert', title: 'Success', message: 'User deleted successfully.', type: 'success');
         return redirect()->route('admin.users');
+    }
+
+    public function revokeDevice($deviceId)
+    {
+        $device = $this->user->devices()->find($deviceId);
+        if ($device) {
+            // Delete the token record
+            if ($device->token) {
+                $device->token()->delete();
+            }
+
+            $device->delete();
+            $this->dispatch('sweetAlert', title: 'Access Revoked', message: 'Device logged out successfully.', type: 'success');
+        } else {
+            $this->dispatch('sweetAlert', title: 'Error', message: 'Device not found.', type: 'error');
+        }
+        $this->user->refresh();
+    }
+
+    public function revokeAllDevices()
+    {
+        $this->user->tokens()->delete();
+        $this->user->devices()->delete();
+
+        $this->dispatch('sweetAlert', title: 'Access Revoked', message: 'All devices logged out successfully.', type: 'success');
+        $this->user->refresh();
     }
 
     public function render()

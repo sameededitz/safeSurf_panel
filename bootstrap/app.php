@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Middleware\VerifyRole;
 use Illuminate\Foundation\Application;
+use App\Http\Middleware\UpdateLastActive;
+use App\Http\Middleware\EnsureUserIsActive;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
@@ -12,7 +15,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'role' => VerifyRole::class,
+            'authorized' => EnsureUserIsActive::class,
+            'touch' => UpdateLastActive::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

@@ -73,7 +73,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new ResetPasswordNotification($token));
     }
-    
+
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
@@ -84,6 +84,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Purchase::class);
     }
 
+    public function devices()
+    {
+        return $this->hasMany(UserDevice::class);
+    }
+
     public function activePlan()
     {
         return $this->hasOne(Purchase::class)->where('status', 'active')->where('end_date', '>', now())->latest();
@@ -92,5 +97,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isBanned(): bool
     {
         return !is_null($this->banned_at);
+    }
+
+    /**
+     * Check if the user has any of the given roles.
+     *
+     * @param  string  ...$roles
+     * @return bool
+     */
+    public function hasAnyRole(string ...$roles): bool
+    {
+        // Assuming the user's role is stored in the "role" attribute.
+        return in_array($this->role, $roles);
     }
 }

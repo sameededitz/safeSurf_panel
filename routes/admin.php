@@ -33,15 +33,13 @@ use App\Livewire\Admin\VpsServers;
 use App\Livewire\Admin\VpsServersManager;
 use Illuminate\Support\Facades\Route;
 
-
-
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    
+
     Route::get('/plans', AllPlans::class)->name('admin.plans');
     Route::get('/create-plan', CreatePlan::class)->name('admin.create.plan');
     Route::get('/edit-plan/{plan}', EditPlan::class)->name('admin.edit.plan');
-    
+
     Route::get('/vps-servers', VpsServers::class)->name('admin.vps.servers');
     Route::get('/create-vps-servers', CreateVpsServers::class)->name('admin.create.vps-server');
     Route::get('/edit-vps-servers/{vpsServers}', EditVpsServers::class)->name('admin.edit.vps-server');
@@ -56,25 +54,24 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/subServers/{server}', AllSubServers::class)->name('admin.subServers');
     Route::get('/create-sub-server/{server}', CreateSubServer::class)->name('admin.create.sub-server');
-    
+
     Route::get('/transactions', Transactions::class)->name('admin.transactions');
-    
+
     Route::get('/users', Users::class)->name('admin.users');
     Route::get('/user-manager/{user:slug}', UserManager::class)->name('admin.user.manager');
     Route::get('/create-user', CreateUser::class)->name('admin.create.user');
     Route::get('/edit-user/{user}', EditUser::class)->name('admin.edit.user');
-    
-    Route::get('/admins', Admins::class)->name('admin.accounts'); 
-     Route::get('/create-admins', CreateAdmin::class)->name('admin.create.admin.account'); 
-    
+
+    Route::get('/admins', Admins::class)->name('admin.accounts');
+    Route::get('/create-admins', CreateAdmin::class)->name('admin.create.admin.account');
+
     Route::get('/notifications', Notifications::class)->name('admin.notifications');
     Route::get('/create-notifications', CreateNotification::class)->name('admin.create.notifications');
     Route::get('/edit-notifications/{notification}', EditNotification::class)->name('admin.edit.notifications');
-    
+
     Route::get('/feedback', Feedbacks::class)->name('admin.feedback');
     Route::get('/mail-manage', MailConfig::class)->name('admin.mail-manage');
     Route::get('/tos', Tos::class)->name('admin.tos');
     Route::get('/tickets', Tickets::class)->name('admin.tickets');
     Route::get('/tickets-details/{ticketId}', TicketDetails::class)->name('admin.tickets.details');
-
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Traits\ManagesUserDevices;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
@@ -15,10 +16,13 @@ use Illuminate\Support\Facades\Validator;
 
 class SocialController extends Controller
 {
+    use ManagesUserDevices;
+
     public function google(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'token' => 'required|string',
+            'device_id' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -55,13 +59,13 @@ class SocialController extends Controller
             // Log the user in
             Auth::login($user);
 
-            $token = $user->createToken('auth_token')->plainTextToken;
+            $token = $this->createOrRefreshDeviceToken($user, $request);
 
             return response()->json([
                 'status' => true,
                 'message' => 'User logged in successfully!',
                 'user' => new UserResource($user),
-                'access_token' => $token,
+                'access_token' => $token->plainTextToken,
                 'token_type' => 'Bearer',
             ], 200);
         } catch (\Exception $e) {
@@ -78,6 +82,7 @@ class SocialController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id_token' => 'required|string',
+            'device_id' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -117,13 +122,13 @@ class SocialController extends Controller
             // Log the user in
             Auth::login($user);
 
-            $token = $user->createToken('auth_token')->plainTextToken;
+            $token = $this->createOrRefreshDeviceToken($user, $request);
 
             return response()->json([
                 'status' => true,
                 'message' => 'User logged in successfully!',
                 'user' => new UserResource($user),
-                'access_token' => $token,
+                'access_token' => $token->plainTextToken,
                 'token_type' => 'Bearer',
             ], 200);
         } catch (\Exception $e) {

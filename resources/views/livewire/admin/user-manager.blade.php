@@ -45,7 +45,7 @@
                                 <tr>
                                     <th class="text-primary-light">Email Verified:</th>
                                     <td>
-                                        {{-- {{ $user->hasVerifiedEmail() ? $user->email_verified_at->toDayDateTimeString() : 'No' }} --}}
+                                        {{ $user->hasVerifiedEmail() ? $user->email_verified_at->toDayDateTimeString() : 'No' }}
                                     </td>
                                 </tr>
                                 @if ($user->isBanned())
@@ -63,7 +63,7 @@
                                 <tr>
                                     <th class="text-primary-light">Registered:</th>
                                     <td>
-                                        {{-- {{ $user->created_at->toDayDateTimeString() }} --}}
+                                        {{ $user->created_at->toDayDateTimeString() }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -92,6 +92,16 @@
                         </button>
                     @endif
 
+                    <button class="btn btn-outline-primary _effect--ripple" wire:click="$js.confirmResetPassword()">
+                        <i class="bx bx-mail-send me-1"></i>
+                        Send Password Reset Link
+                    </button>
+
+                    <button class="btn btn-outline-warning" wire:click="$js.confirmRevokeAllDevices()">
+                        <i class="bx bx-user-x me-1"></i>
+                        Revoke All Access
+                    </button>
+
                     @if ($user->isBanned())
                         <button class="btn btn-outline-success _effect--ripple" wire:click="unbanUser">
                             <i class="bx bx-user-check me-1"></i>
@@ -112,7 +122,66 @@
                 </div>
             </div>
         </div>
-        {{-- @if ($user->role == 'user') --}}
+        <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Devices</h5>
+                </div>
+                <div class="card-body">
+                    <div class="scrollable-pretty mh-300 overflow-y-auto">
+                        <p class="text-secondary-light mb-16">
+                            Below are the devices currently associated with this user. You can revoke access to any
+                            device if necessary.
+                        </p>
+                        <div class="list-group">
+                            @forelse ($user->devices as $device)
+                                <div class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div
+                                        class="d-flex justify-content-between align-items-center flex-column flex-md-row gap-2 w-100">
+                                        <div class="d-flex align-items-center gap-2">
+                                            @if ($device->device_type === 'web')
+                                                <iconify-icon icon="arcticons:emoji-web" width="48"
+                                                    height="48"></iconify-icon>
+                                            @elseif ($device->device_type === 'mobile')
+                                                <iconify-icon icon="mdi:cellphone" width="48"
+                                                    height="48"></iconify-icon>
+                                            @elseif ($device->device_type === 'desktop')
+                                                <iconify-icon icon="mdi:desktop-classic" width="48"
+                                                    height="48"></iconify-icon>
+                                            @else
+                                                <iconify-icon icon="mdi:devices" width="48"
+                                                    height="48"></iconify-icon>
+                                            @endif
+                                            <div>
+                                                <div class="fw-bold">{{ $device->device_name }}</div>
+                                                <small>
+                                                    {{ $device->platform }} | {{ ucfirst($device->device_type) }} |
+                                                    IP:
+                                                    {{ $device->ip_address }}
+                                                </small><br>
+                                                <small>
+                                                    Last Active:
+                                                    {{ $device->last_active_at ? $device->last_active_at->diffForHumans() : 'N/A' }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-sm btn-outline-danger mt-2 mt-md-0"
+                                            wire:click="$js.confirmRevokeDevice({{ $device->id }})">
+                                            Revoke
+                                        </button>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="list-group-item">
+                                    <p class="mb-0">No devices available.</p>
+                                </div>
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if ($user->role == 'user')
             <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                 <div class="card">
                     <div class="card-header">
@@ -136,7 +205,7 @@
                                     Cancel Plan
                                 </button>
                             @else
-                             <tr>
+                                <tr>
                                     <th class="text-primary-light w-30">Plan:</th>
                                     <td class="w-70">No Active Plan </td>
                                 </tr>
@@ -180,8 +249,8 @@
                                     <div class="me-auto">
                                         <div class="fw-bold title">{{ $purchase->plan->name }}</div>
                                         {{-- <p class="sub-title mb-0">({{ $purchase->start_date->toFormattedDateString() }} --}}
-                                            -
-                                            {{-- {{ $purchase->end_date->toFormattedDateString() }})
+                                        -
+                                        {{-- {{ $purchase->end_date->toFormattedDateString() }})
                                             - {{ Str::title($purchase->status) }}</p> --}}
                                     </div>
                                     <span
@@ -196,7 +265,7 @@
                     </div>
                 </div>
             </div>
-        {{-- @endif --}}
+        @endif
     </div>
 </div>
 @script
@@ -268,6 +337,51 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $wire.deleteUser();
+                }
+            });
+        });
+
+        $js('confirmRevokeDevice', (deviceId) => {
+            Swal.fire({
+                title: 'Revoke Access?',
+                text: 'Are you sure you want to logout this device?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, revoke',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $wire.revokeDevice(deviceId);
+                }
+            });
+        });
+
+        $js('confirmRevokeAllDevices', () => {
+            Swal.fire({
+                title: 'Revoke All Access?',
+                text: 'This will logout the user from all devices. Continue?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, revoke all',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $wire.revokeAllDevices();
+                }
+            });
+        });
+
+        $js('confirmResetPassword', () => {
+            Swal.fire({
+                title: 'Send Password Reset Link?',
+                text: 'This will also revoke all current ongoing sessions. Continue?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, send link',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $wire.sendPasswordResetLink();
                 }
             });
         });

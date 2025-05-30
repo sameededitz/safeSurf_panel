@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Server;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use App\Models\Server;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\UserDeviceResource;
 
 class UserController extends Controller
 {
@@ -28,6 +29,7 @@ class UserController extends Controller
     {
         /** @var \App\Models\User $user **/
         $user = Auth::user();
+        $user->load('tickets', 'purchases', 'devices');
 
         $servers = Server::count();
 
@@ -36,6 +38,7 @@ class UserController extends Controller
             'stats' => [
                 'tickets' => $user->tickets()->count(),
                 'purchases' => $user->purchases()->count(),
+                'devices' => $user->devices()->count(),
                 'servers' => $servers,
             ]
         ], 200);
@@ -116,5 +119,73 @@ class UserController extends Controller
             'status' => false,
             'message' => 'Failed to delete account',
         ], 500);
+    }
+
+    public function devices()
+    {
+        /** @var \App\Models\User $user **/
+        $user = Auth::user();
+        $devices = $user->devices()
+            ->orderBy('last_active_at', 'desc')
+            ->get();
+
+        return response()->json([
+            'status' => true,
+            'devices' => UserDeviceResource::collection($devices),
+        ]);
+    }
+
+    public function revoke($id)
+    {
+        /** @var \App\Models\User $user **/
+        $user = Auth::user();
+        $device = $user->devices()->find($id);
+
+        if (!$device) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Device not found.',
+            ], 404);
+        }
+
+        if ($device->token_id === optional($user->currentAccessToken())->id) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You cannot revoke your current device.',
+            ], 400);
+        }
+
+        if ($device->token) {
+            $device->token()->delete();
+        }
+
+        $device->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Device access revoked.',
+        ]);
+    }
+
+    public function revokeAllExceptCurrent()
+    {
+        /** @var \App\Models\User $user **/
+        $user = Auth::user();
+        $currentTokenId = optional($user->currentAccessToken())->id;
+
+        // Delete all device records except current token's device
+        $user->devices()
+            ->where('token_id', '!=', $currentTokenId)
+            ->each(function ($device) {
+                if ($device->token) {
+                    $device->token()->delete();
+                }
+                $device->delete();
+            });
+
+        return response()->json([
+            'status' => true,
+            'message' => 'All other devices have been logged out.',
+        ]);
     }
 }
