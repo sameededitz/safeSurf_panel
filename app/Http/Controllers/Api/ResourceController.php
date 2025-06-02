@@ -29,7 +29,7 @@ class ResourceController extends Controller
             ], 400);
         }
 
-        $servers = Server::where($request->platform, true)->with(['subServers.subSubServers'])->get();
+        $servers = Server::where($request->platform, true)->with(['subServers.vpsServer'])->get();
 
         return response()->json([
             'status' => true,
