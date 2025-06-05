@@ -130,10 +130,7 @@ class AccountController extends Controller
             'password' => [
                 'required',
                 'confirmed',
-                RulesPassword::min(8)
-                    ->letters()
-                    ->numbers()
-                    ->uncompromised(),
+                RulesPassword::min(8),
             ],
         ]);
 
