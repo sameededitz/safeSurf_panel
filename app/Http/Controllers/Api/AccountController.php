@@ -141,7 +141,8 @@ class AccountController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'message' => $validator->errors()->all()
+                'message' => "Validation failed",
+                'errors' => $validator->errors()->all()
             ], 422);
         }
 
