@@ -137,7 +137,7 @@ class AccountController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'message' => "Password must be at least 8 characters long, contain letters and numbers, and not be compromised.",
+                'message' => "Password must be at least 8 characters long.",
                 'errors' => $validator->errors()->all()
             ], 422);
         }
