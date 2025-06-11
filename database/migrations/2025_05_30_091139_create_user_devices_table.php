@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('token_id')->nullable()->constrained('personal_access_tokens')->nullOnDelete();
-            $table->string('device_id')->nullable()->unique(); // Unique identifier for the device, e.g., UUID
+            $table->string('device_id')->nullable();
             $table->string('device_name'); // e.g., iPhone 14, Chrome on Mac
             $table->string('device_type'); // mobile / web / desktop
             $table->string('platform')->nullable(); // iOS / Android / Windows / macOS etc.
