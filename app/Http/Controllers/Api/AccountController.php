@@ -130,18 +130,15 @@ class AccountController extends Controller
             'password' => [
                 'required',
                 'confirmed',
-                RulesPassword::min(8)
-                    ->letters()
-                    ->numbers()
-                    ->symbols()
-                    ->uncompromised(),
+                RulesPassword::min(8),
             ],
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'message' => $validator->errors()->all()
+                'message' => "Password must be at least 8 characters long.",
+                'errors' => $validator->errors()->all()
             ], 422);
         }
 
