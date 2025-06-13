@@ -52,7 +52,7 @@ trait ManagesUserDevices
             'device_name' => $deviceName,
             'device_type' => $deviceType,
             'platform' => $platform,
-            'ip_address' => $request->ip(),
+            'ip_address' => $request->input('ip_address') ?? $request->ip(),
             'last_active_at' => now(),
         ]);
 

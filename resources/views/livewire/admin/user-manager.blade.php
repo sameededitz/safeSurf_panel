@@ -1,4 +1,16 @@
 @section('title', 'Manage User')
+@section('styles')
+    <style>
+        input[type='number'] {
+            -moz-appearance: textfield;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+    </style>
+@endsection
 <div>
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
@@ -124,8 +136,10 @@
         </div>
         <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex align-items-center justify-content-between">
                     <h5 class="card-title mb-0">Devices</h5>
+                    <input type="number" class="form-control text-center" value="{{ $user->maxDevices() }}"
+                        style="width: auto; max-width: 40px;" readonly />
                 </div>
                 <div class="card-body">
                     <div class="scrollable-pretty mh-300 overflow-y-auto">
@@ -216,7 +230,8 @@
                             {{-- <x-alert type="warning" message="{{ $errors->first() }}" /> --}}
                         @endif
                         <div class="form-group mb-3">
-                            <select class="form-control w-100" id="exampleFormControlSelect1" wire:model="selectedPlan">
+                            <select class="form-control w-100" id="exampleFormControlSelect1"
+                                wire:model="selectedPlan">
                                 <option value="" selected>Select Plan</option>
                                 @foreach ($plans as $plan)
                                     <option value="{{ $plan->id }}">{{ $plan->name }}
