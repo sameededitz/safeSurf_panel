@@ -17,8 +17,8 @@ class UserDeviceResource extends JsonResource
         $currentToken = $request->user()->currentAccessToken();
         return [
             'id' => $this->id,
-            'device_name' => $this->name,
-            'device_type' => $this->type,
+            'device_name' => $this->device_name,
+            'device_type' => $this->device_type,
             'platform' => $this->platform,
             'ip_address' => $this->ip_address,
             'last_active_at' => $this->last_active_at ? $this->last_active_at->toDateTimeString() : null,
