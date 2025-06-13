@@ -48,17 +48,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="example-price-input" class="col-sm-2 col-form-label">Original Price</label>
+                                    <label for="example-price-input" class="col-sm-2 col-form-label">Original
+                                        Price</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" type="number" placeholder="Enter the Original Price"
-                                            id="example-price-input" wire:model='original_price'>
+                                        <input class="form-control" type="number"
+                                            placeholder="Enter the Original Price" id="example-price-input"
+                                            wire:model='original_price'>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="example-price-input" class="col-sm-2 col-form-label">Discount Price</label>
+                                    <label for="example-price-input" class="col-sm-2 col-form-label">Discount
+                                        Price</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" type="number" placeholder="Enter the Discount Price"
-                                            id="example-price-input" wire:model='discount_price'>
+                                        <input class="form-control" type="number"
+                                            placeholder="Enter the Discount Price" id="example-price-input"
+                                            wire:model='discount_price'>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -78,6 +82,13 @@
                                             <option value="month">Month</option>
                                             <option value="year">Year</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Max Devices</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="number" placeholder="Enter Max Devices"
+                                            wire:model='device_limit'>
                                     </div>
                                 </div>
                                 <div class="form-group row">

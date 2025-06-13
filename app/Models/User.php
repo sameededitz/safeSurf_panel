@@ -99,6 +99,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return !is_null($this->banned_at);
     }
 
+    public function maxDevices(): int
+    {
+        $activePlan = $this->activePlan()->first();
+
+        if ($activePlan && $activePlan->plan) {
+            return $activePlan->plan->device_limit ?? 4;
+        }
+
+        return 2; // Default for free users
+    }
+
     /**
      * Check if the user has any of the given roles.
      *

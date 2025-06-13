@@ -8,7 +8,7 @@ use Livewire\Component;
 class EditPlan extends Component
 {
     public Plan $plan;
-    public $name, $description, $original_price, $discount_price, $duration, $duration_unit;
+    public $name, $description, $original_price, $discount_price, $duration, $duration_unit, $device_limit;
 
     public $features = [];
 
@@ -21,6 +21,7 @@ class EditPlan extends Component
             'discount_price' => 'nullable|numeric|min:0',
             'duration' => 'required|integer|min:1',
             'duration_unit' => 'required|in:day,week,month,year',
+            'device_limit' => 'required|integer|min:1',
             'features.*.title' => 'required|string|max:255',
             'features.*.enabled' => 'boolean',
         ];
@@ -35,6 +36,8 @@ class EditPlan extends Component
         $this->discount_price = $plan->discount_price;
         $this->duration = $plan->duration;
         $this->duration_unit = $plan->duration_unit;
+        $this->device_limit = $plan->device_limit;
+        // Initialize features
         $this->features = $plan->features->map(function ($feature) {
             return [
                 'id' => $feature->id,
@@ -72,6 +75,7 @@ class EditPlan extends Component
             'discount_price' => $this->discount_price,
             'duration' => $this->duration,
             'duration_unit' => $this->duration_unit,
+            'device_limit' => (int) $this->device_limit,
         ]);
 
         foreach ($this->features as $featureData) {
@@ -103,7 +107,7 @@ class EditPlan extends Component
     {
         /** @disregard @phpstan-ignore-line */
         return view('livewire.admin.edit-plan')
-        ->extends('layouts.admin')
-        ->section('content');
+            ->extends('layouts.admin')
+            ->section('content');
     }
 }
