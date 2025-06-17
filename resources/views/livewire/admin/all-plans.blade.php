@@ -61,6 +61,7 @@
                         <th data-priority="3">Original</th>
                         <th data-priority="3">Discount</th>
                         <th data-priority="1">Duration</th>
+                        <th data-priority="1">Max Devices</th>
                         <th data-priority="3">Created At</th>
                         <th data-priority="3">Actions</th>
                     </tr>
@@ -84,6 +85,7 @@
                             <td>${{ number_format($plan->original_price, 2) }}</td>
                             <td>${{ number_format($plan->discount_price, 2) }}</td>
                             <td>{{ $plan->duration }} {{ ucfirst($plan->duration_unit) }}</td>
+                            <td>{{ $plan->device_limit }}</td>
                             <td>{{ $plan->created_at->toFormattedDateString() }}</td>
                             <td>
                                 <div class="d-flex align-items-center">

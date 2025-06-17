@@ -17,7 +17,15 @@ trait ManagesUserDevices
             abort(422, 'Device ID is required.');
         }
 
-        // Delete previous device entry if same device_id exists
+        // Check if this device already exists
+        $existingDevice = $user->devices()->where('device_id', $deviceId)->first();
+
+        // If this is a new device and user already reached max allowed devices
+        if (!$existingDevice && $user->devices()->count() >= $user->maxDevices()) {
+            abort(403, 'Device limit reached. Please remove a device before logging in on a new one.');
+        }
+
+        // Delete previous device entry with same device_id (for safety)
         /** @var \App\Models\UserDevice $existingDevice **/
         $existingDevice = $user->devices()->where('device_id', $deviceId)->first();
         if ($existingDevice) {
@@ -44,7 +52,7 @@ trait ManagesUserDevices
             'device_name' => $deviceName,
             'device_type' => $deviceType,
             'platform' => $platform,
-            'ip_address' => $request->ip(),
+            'ip_address' => $request->input('ip_address') ?? $request->ip(),
             'last_active_at' => now(),
         ]);
 

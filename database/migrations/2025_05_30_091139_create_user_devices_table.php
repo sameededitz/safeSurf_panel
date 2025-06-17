@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('ip_address')->nullable();
             $table->timestamp('last_active_at')->nullable();
             $table->timestamps();
+
+            $table->unique(['user_id', 'device_id']);
         });
     }
 

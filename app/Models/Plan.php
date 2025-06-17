@@ -20,6 +20,7 @@ class Plan extends Model
         'discount_price',
         'duration',
         'duration_unit',
+        'device_limit',
     ];
 
     public function purchases(): HasMany

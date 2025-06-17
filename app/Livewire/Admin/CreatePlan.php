@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class CreatePlan extends Component
 {
-    public $name, $description, $original_price, $discount_price, $duration, $duration_unit;
+    public $name, $description, $original_price, $discount_price, $duration, $duration_unit, $device_limit;
 
     public $features = [
         ['title' => '', 'enabled' => true],
@@ -22,6 +22,7 @@ class CreatePlan extends Component
             'discount_price' => 'nullable|numeric|min:0',
             'duration' => 'required|integer|min:1',
             'duration_unit' => 'required|in:day,week,month,year',
+            'device_limit' => 'required|integer|min:1',
             'features.*.title' => 'required|string|max:255',
             'features.*.enabled' => 'boolean',
         ];
@@ -49,6 +50,7 @@ class CreatePlan extends Component
             'discount_price' => $this->discount_price,
             'duration' => $this->duration,
             'duration_unit' => $this->duration_unit,
+            'device_limit' => $this->device_limit,
         ]);
 
         foreach ($this->features as $feature) {

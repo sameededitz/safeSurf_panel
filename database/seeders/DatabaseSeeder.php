@@ -17,16 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory()->admin()->create();
-        // User::factory()->user()->create();
+        User::factory()->admin()->create();
+        User::factory()->user()->create();
         
         // $this->call([
         //     PlanSeeder::class,
         // ]);
         // Purchase::factory(10)->create();
 
-        UserDevice::factory(5)->create([
-            'user_id' => 3, // Assuming user with ID 2 exists
-        ]);
+        // UserDevice::factory(5)->create([
+        //     'user_id' => 3, // Assuming user with ID 2 exists
+        // ]);
     }
 }
