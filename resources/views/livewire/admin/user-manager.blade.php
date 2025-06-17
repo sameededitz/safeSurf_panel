@@ -212,7 +212,7 @@
                                 <li class="d-flex align-items-center gap-1 mb-12">
                                     <p class="w-30 text-md fw-semibold text-primary-light"> Expires At </p>
                                     <p class="w-70 text-secondary-light fw-normal">:
-                                        {{-- {{ $user->activePlan->end_date->toDayDateTimeString() }} </p> --}}
+                                        {{ $user->activePlan->end_date->toDayDateTimeString() }} </p>
                                 </li>
                                 <button class="btn btn-outline-info mb-2 _effect--ripple waves-effect waves-light"
                                     wire:click="$js.confirmCancelPlan()">

@@ -19,6 +19,7 @@ class UserManager extends Component
     {
         $this->user = $user->load(['purchases.plan', 'activePlan.plan', 'devices.token']);
         $this->plans = Plan::all();
+        // dd($this->user);
     }
 
     public function addPlan()
@@ -58,7 +59,7 @@ class UserManager extends Component
 
         $this->selectedPlan = null;
 
-        $this->user->refresh();
+        $this->user->refresh()->load(['purchases.plan', 'activePlan.plan', 'devices.token']);
 
         $this->dispatch('sweetAlert', title: 'Success', message: $message, type: 'success');
     }
@@ -80,7 +81,7 @@ class UserManager extends Component
     {
         $this->user->update(['email_verified_at' => now()]);
         $this->dispatch('sweetAlert', title: 'Success', message: 'Email verified manually.', type: 'success');
-        $this->user->refresh();
+        $this->user->refresh()->load(['purchases.plan', 'activePlan.plan', 'devices.token']);
     }
 
     public function resendVerificationEmail()
@@ -119,7 +120,7 @@ class UserManager extends Component
             $this->user->tokens()->delete();
             $this->dispatch('sweetAlert', title: 'Success', message: 'User banned successfully.', type: 'success');
         }
-        $this->user->refresh();
+        $this->user->refresh()->load(['purchases.plan', 'activePlan.plan', 'devices.token']);
     }
 
     public function unbanUser()
@@ -128,7 +129,7 @@ class UserManager extends Component
             $this->user->update(['banned_at' => null, 'ban_reason' => null]);
             $this->dispatch('sweetAlert', title: 'Success', message: 'User unbanned successfully.', type: 'success');
         }
-        $this->user->refresh();
+        $this->user->refresh()->load(['purchases.plan', 'activePlan.plan', 'devices.token']);
     }
 
     public function deleteUser()
@@ -152,7 +153,7 @@ class UserManager extends Component
         } else {
             $this->dispatch('sweetAlert', title: 'Error', message: 'Device not found.', type: 'error');
         }
-        $this->user->refresh();
+        $this->user->refresh()->load(['purchases.plan', 'activePlan.plan', 'devices.token']);
     }
 
     public function revokeAllDevices()
@@ -161,7 +162,7 @@ class UserManager extends Component
         $this->user->devices()->delete();
 
         $this->dispatch('sweetAlert', title: 'Access Revoked', message: 'All devices logged out successfully.', type: 'success');
-        $this->user->refresh();
+        $this->user->refresh()->load(['purchases.plan', 'activePlan.plan', 'devices.token']);
     }
 
     public function render()
