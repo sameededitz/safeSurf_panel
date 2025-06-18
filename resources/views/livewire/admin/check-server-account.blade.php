@@ -1,3 +1,4 @@
+@section('title', 'Create Server Account')
 <div>
     {{-- @dd($config) --}}
     <div class="card mb-3">

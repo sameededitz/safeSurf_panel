@@ -1,3 +1,4 @@
+@section('title', 'Create Servers Accounts')
 <div>
     <div class="page-content-wrapper ">
 

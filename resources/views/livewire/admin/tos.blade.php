@@ -1,3 +1,4 @@
+@section('title', 'Terms of Service')
 <div>
     <div class="page-content-wrapper ">
 

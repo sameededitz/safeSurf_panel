@@ -1,3 +1,4 @@
+@section('title', 'Create vps server')
 <div>
     <div class="page-content-wrapper ">
 

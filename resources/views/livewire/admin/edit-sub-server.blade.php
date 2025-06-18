@@ -1,4 +1,4 @@
-@section('title', 'Edit Server')
+@section('title', 'Edit Sub Server')
 <div>
     <div class="row">
         <div class="col-sm-12">

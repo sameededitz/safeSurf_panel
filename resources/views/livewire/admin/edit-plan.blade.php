@@ -1,3 +1,4 @@
+@section('title', 'Edit Plan')
 <div>
     <div class="page-content-wrapper ">
 

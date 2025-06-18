@@ -1,3 +1,4 @@
+@section('title', 'Vps Servers Manager')
 <div>
     <div class="row mt-4" wire:init="fetchServerUsage">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-right">

@@ -1,4 +1,4 @@
-
+@section('title', 'Transactions')
 
 <div>
     <div class="row">

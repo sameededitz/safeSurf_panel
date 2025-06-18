@@ -1,3 +1,4 @@
+@section('title', 'Create User')
 <div>
     <div class="page-content-wrapper ">
 

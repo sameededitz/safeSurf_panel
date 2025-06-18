@@ -1,3 +1,4 @@
+@section('title', 'Notifications')
 <div>
     <div class="row">
         <div class="col-sm-12">

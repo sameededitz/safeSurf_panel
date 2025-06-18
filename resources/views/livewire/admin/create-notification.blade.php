@@ -1,3 +1,4 @@
+@section('title', 'Create Notification')
 <div>
     <div class="page-content-wrapper ">
 

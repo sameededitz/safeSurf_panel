@@ -1,4 +1,4 @@
-
+@section('title', 'Feedbacks')
 
     <div>
         <div class="row">
