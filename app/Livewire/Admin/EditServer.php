@@ -23,7 +23,7 @@ class EditServer extends Component
             'windows' => 'required|boolean',
             'longitude' => 'required|numeric',
             'latitude' => 'required|numeric',
-            'type' => 'required|in:free,premium',
+            'type' => 'required|in:free,premium,streaming',
             'status' => 'required|boolean',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:20420',
         ];

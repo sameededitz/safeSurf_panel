@@ -22,7 +22,7 @@ class CreateServer extends Component
             'windows' => 'required|boolean',
             'longitude' => 'required|numeric',
             'latitude' => 'required|numeric',
-            'type' => 'required|in:free,premium',
+            'type' => 'required|in:free,premium,streaming',
             'status' => 'required|boolean',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:20420',
             'longitude' => 'required|numeric',

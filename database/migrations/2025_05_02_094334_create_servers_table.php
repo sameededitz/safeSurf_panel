@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean('windows')->default(false);
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
-            $table->enum('type', ['free', 'premium'])->default('free');
+            $table->enum('type', ['free', 'premium', 'streaming'])->default('free');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

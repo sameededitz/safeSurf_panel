@@ -47,6 +47,7 @@
                                 <option value="" selected>Select Type</option>
                                 <option value="free">Free</option>
                                 <option value="premium">Premium</option>
+                                <option value="streaming">Streaming</option>
                             </select>
                         </div>
                         <div class="col-sm-12 mb-2">
