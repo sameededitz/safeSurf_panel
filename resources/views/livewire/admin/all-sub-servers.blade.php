@@ -68,13 +68,13 @@
                             <td>{{ $subServer->created_at->toFormattedDateString() }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <a href="{{ route('admin.edit.server', $server->id) }}"
+                                    <a href="{{ route('admin.edit.sub-server', $subServer->id) }}"
                                         class="btn btn-light-success btn-rounded btn-icon me-1 d-inline-flex align-items-center">
                                         <iconify-icon icon="lucide:edit" width="20" height="20"></iconify-icon>
                                     </a>
                                     <button
                                         class="btn btn-light-danger btn-rounded btn-icon d-inline-flex align-items-center"
-                                        wire:click="$js.confirmDelete({{ $server->id }})">
+                                        wire:click="$js.confirmDelete({{ $subServer->id }})">
                                         <iconify-icon icon="mingcute:delete-2-line" width="20"
                                             height="20"></iconify-icon>
                                     </button>
