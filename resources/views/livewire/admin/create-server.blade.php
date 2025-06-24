@@ -41,6 +41,15 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                         <div class="col-sm-12 mb-2">
+                            <label for="category" class="form-label">category</label>
+                            <select class="form-control" id="category" wire:model="category">
+                                <option value="" selected>Select Category</option>
+                                <option value="speed">Top Speed</option>
+                                <option value="download">Fast Download</option>
+                                <option value="privacy">Top Privacy</option>
+                            </select>
+                        </div>
                         <div class="col-sm-12 mb-2">
                             <label for="type" class="form-label">Type</label>
                             <select class="form-control" id="type" wire:model="type">

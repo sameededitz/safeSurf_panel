@@ -10,7 +10,7 @@ class CreateServer extends Component
 {
     use WithFileUploads;
 
-    public $image, $name, $android = false, $ios = false, $macos = false, $windows = false, $longitude, $latitude, $type, $status;
+    public $image, $name, $android = false, $ios = false, $macos = false, $windows = false, $longitude, $latitude, $type, $status, $category;
 
     protected function rules()
     {
@@ -22,6 +22,7 @@ class CreateServer extends Component
             'windows' => 'required|boolean',
             'longitude' => 'required|numeric',
             'latitude' => 'required|numeric',
+            'category' => 'required|in:speed,download,privacy',
             'type' => 'required|in:free,premium,streaming',
             'status' => 'required|boolean',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:20420',
@@ -44,6 +45,7 @@ class CreateServer extends Component
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
             'type' => $this->type,
+            'category' => $this->category,
             'status' => $this->status,
         ]);
 

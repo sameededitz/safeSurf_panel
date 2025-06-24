@@ -25,6 +25,7 @@ class ServerResource extends JsonResource
                 'windows' => (bool) $this->windows,
             ],
             'type' => $this->type,
+            'category' => $this->category,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'sub_servers' => $this->whenLoaded('subServers', fn() => SubServerResource::collection($this->subServers)),

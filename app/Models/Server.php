@@ -18,6 +18,7 @@ class Server extends Model implements HasMedia
         'windows',
         'longitude',
         'latitude',
+        'category',
         'type',
         'status'
     ];

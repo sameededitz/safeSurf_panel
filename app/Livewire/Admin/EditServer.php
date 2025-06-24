@@ -11,7 +11,7 @@ class EditServer extends Component
     use WithFileUploads;
 
     public Server $server;
-    public $image, $name, $android = false, $ios = false, $macos = false, $windows = false, $longitude, $latitude, $type, $status;
+    public $image, $name, $android = false, $ios = false, $macos = false, $windows = false, $longitude, $latitude, $type, $status, $category;
 
     protected function rules()
     {
@@ -23,6 +23,7 @@ class EditServer extends Component
             'windows' => 'required|boolean',
             'longitude' => 'required|numeric',
             'latitude' => 'required|numeric',
+            'category' => 'required|in:speed,download,privacy',
             'type' => 'required|in:free,premium,streaming',
             'status' => 'required|boolean',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:20420',
@@ -39,6 +40,7 @@ class EditServer extends Component
         $this->windows = $server->windows;
         $this->longitude = $server->longitude;
         $this->latitude = $server->latitude;
+        $this->category = $server->category;
         $this->type = $server->type;
         $this->status = $server->status;
     }
@@ -55,6 +57,7 @@ class EditServer extends Component
             'windows' => $this->windows,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
+            'category' => $this->category,
             'type' => $this->type,
             'status' => $this->status,
         ]);
@@ -66,7 +69,7 @@ class EditServer extends Component
                 ->toMediaCollection('image');
         }
 
-        $this->reset(['image','name', 'android', 'ios', 'macos', 'windows','longitude', 'latitude', 'type', 'status']);
+        $this->reset(['image','name', 'android', 'ios', 'macos', 'windows','longitude', 'latitude', 'category', 'type', 'status']);
 
         return redirect()->intended(route('admin.servers'))->with('message', 'Server updated successfully.');
     }
