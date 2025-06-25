@@ -53,6 +53,7 @@
                         <th>Name</th>
                         <th>Platforms</th>
                         <th>Type</th>
+                        <th>Category</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -76,6 +77,9 @@
                                 <span class="badge {{ $server->isPremium() ? 'badge-primary' : 'badge-secondary' }}">
                                     {{ ucfirst($server->type) }}
                                 </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-info">{{ $server->category ?? 'N/A' }}</span>
                             </td>
                             <td>
                                 <span class="badge {{ $server->isActive() ? 'badge-success' : 'badge-danger' }}">
