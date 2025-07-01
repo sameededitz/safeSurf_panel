@@ -35,7 +35,7 @@ class CreateServer extends Component
     {
         $this->validate();
 
-         /** @var \App\Models\Server $server **/
+        /** @var \App\Models\Server $server **/
         $server = Server::create([
             'name' => $this->name,
             'android' => $this->android,
