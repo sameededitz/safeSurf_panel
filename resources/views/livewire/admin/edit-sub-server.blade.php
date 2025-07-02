@@ -21,7 +21,7 @@
                     <h4 class="card-title mb-1">Edit Sub Server</h4>
                 </div>
                 <div class="card-body">
-                    <form wire:submit.prevent="store" class="row">
+                    <form wire:submit.prevent="update" class="row">
                         <div class="col-sm-12 mb-2">
                             <label for="name">Name</label>
                             <input type="text" class="form-control" id="name" wire:model.defer="name"

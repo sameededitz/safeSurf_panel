@@ -32,7 +32,7 @@ class EditSubServer extends Component
         $this->vps_server = $subServer->vps_server_id;
     }
 
-    public function store()
+    public function update()
     {
         $this->validate();
 
@@ -42,7 +42,8 @@ class EditSubServer extends Component
             'vps_server_id' => $this->vps_server,
         ]);
 
-        return redirect()->intended(route('admin.subServers', $this->subServer->id))->with('message', 'Sub Server updated successfully.');
+        $this->dispatch('snackbar', message: 'Sub-Sub Server added successfully!', type: 'success');
+        $this->dispatch('redirect', url: route('admin.edit.sub-server', $this->subServer));
     }
 
     public function render()
