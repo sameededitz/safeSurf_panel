@@ -42,7 +42,7 @@ class EditSubServer extends Component
             'vps_server_id' => $this->vps_server,
         ]);
 
-        return redirect()->intended(route('admin.subServers', $this->subServer))->with('message', 'Sub Server updated successfully.');
+        return redirect()->intended(route('admin.subServers', $this->subServer->id))->with('message', 'Sub Server updated successfully.');
     }
 
     public function render()
