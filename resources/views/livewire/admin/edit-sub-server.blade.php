@@ -66,3 +66,15 @@
         </div>
     </div>
 </div>
+@script
+    <script>
+        $wire.on('snackbar', (event) => {
+            showSnackbar(event.message, event.type);
+        });
+        $wire.on('redirect', (event) => {
+            setTimeout(() => {
+                window.location.href = event.url;
+            }, 1000);
+        });
+    </script>
+@endscript
