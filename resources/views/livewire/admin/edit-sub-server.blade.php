@@ -21,7 +21,7 @@
                     <h4 class="card-title mb-1">Edit Sub Server</h4>
                 </div>
                 <div class="card-body">
-                    <form wire:submit.prevent="store" class="row">
+                    <form wire:submit.prevent="update" class="row">
                         <div class="col-sm-12 mb-2">
                             <label for="name">Name</label>
                             <input type="text" class="form-control" id="name" wire:model.defer="name"
@@ -66,3 +66,15 @@
         </div>
     </div>
 </div>
+@script
+    <script>
+        $wire.on('snackbar', (event) => {
+            showSnackbar(event.message, event.type);
+        });
+        $wire.on('redirect', (event) => {
+            setTimeout(() => {
+                window.location.href = event.url;
+            }, 1000);
+        });
+    </script>
+@endscript

@@ -8,7 +8,7 @@
         <div class="text-center" style="
     margin-top: 20px;">
             <!--<a href="index.html" class="logo"><i class="mdi mdi-assistant"></i>Zoter</a>-->
-            <a href="index.html" class="logo">
+            <a href="{{ route('admin.dashboard') }}" class="logo">
                 <img src="{{ asset('assets/images/logo-lg.png') }}" alt="" class="logo-large">
                 <h4 class="waves-effect mr-2">Safesurf.pro</h4>
             </a>
