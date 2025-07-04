@@ -108,135 +108,82 @@ HTML;
     }
 
     public function runScript()
-    {
-        set_time_limit(0);
-        $this->output = null;
+{
+    set_time_limit(0);
+    $this->output = null;
 
-        try {
-            $timestamp = now()->format('Y-m-d H:i:s');
-            $this->appendOutput("Starting execution at: {$timestamp}\n\n");
+    try {
+        $timestamp = now()->format('Y-m-d H:i:s');
+        $this->appendOutput("Starting execution at: {$timestamp}\n\n");
 
-            $script = $this->getModifiedScript();
-            $script2 = $this->getSecondScript();
-            $script3 = $this->getthirdScript();
-            if (empty($script) || empty($script2) || empty($script3)) {
-                throw new \Exception("Script content is empty or not found.");
-            }
+        $script = $this->getModifiedScript();
+        $script2 = $this->getSecondScript();
+        $script3 = $this->getthirdScript();
 
-            // Generate unique script paths with random strings
-            $randomStr1 = substr(str_shuffle(MD5(microtime())), 0, 10);
-            $randomStr2 = substr(str_shuffle(MD5(microtime())), 0, 10);
-            $randomStr3 = substr(str_shuffle(MD5(microtime())), 0, 10);
-            $scriptPath1 = "/tmp/vpn_setup_{$randomStr1}.sh";
-            $scriptPath2 = "/tmp/vpn_open_setup_{$randomStr2}.sh";
-            $scriptPath3 = "/tmp/vpn_setup_wireguard_{$randomStr3}.sh";
-
-            $this->appendOutput("Executing script on server {$this->server->ip_address}...\n\n");
-
-            // SFTP Connection and Upload
-            $sftp = $this->connectToSftp();
-            $this->appendOutput("Connected successfully via SFTP!\n\n");
-
-            $this->appendOutput("Uploading setup script...\n\n");
-
-            if (!$sftp->put($scriptPath1, $script)) {
-                throw new \Exception("Failed to upload vpn script to the server.");
-            }
-            $this->appendOutput("Script uploaded successfully!\n\n");
-
-            if (!$sftp->put($scriptPath2, $script2)) {
-                throw new \Exception("Failed to upload vpn api script to the server.");
-            }
-            $this->appendOutput("Second script uploaded successfully!\n\n");
-
-            if (!$sftp->put($scriptPath3, $this->getthirdScript())) {
-                throw new \Exception("Failed to upload wireguard script to the server.");
-            }
-            $this->appendOutput("Third script uploaded successfully!\n\n");
-            $this->appendOutput("Setting permissions for the scripts...\n\n");
-            $sftp->chmod(0755, $scriptPath1);
-            $sftp->chmod(0755, $scriptPath2);
-            $sftp->chmod(0755, $scriptPath3);
-            $this->appendOutput("Permissions set successfully!\n\n");
-            $sftp->disconnect();
-            $this->appendOutput("SFTP disconnected\n\n");
-
-            // SSH Connection
-            $this->appendOutput("Connecting to server via SSH...\n\n");
-            $ssh = new SSH2($this->server->ip_address, $this->server->port, 30);
-
-            if (!empty($this->server->private_key)) {
-                $key = PublicKeyLoader::load($this->server->private_key);
-                if (!$ssh->login($this->server->username, $key)) {
-                    throw new \Exception("SSH key authentication failed");
-                }
-            } elseif (!empty($this->server->password)) {
-                if (!$ssh->login($this->server->username, $this->server->password)) {
-                    throw new \Exception("Password authentication failed");
-                }
-            }
-
-            $this->appendOutput("Connected successfully via SSH!\n\n");
-            $ssh->setTimeout(1200); // 20 minutes timeout
-
-            $this->appendOutput("Setting up VPN...\n\n");
-            $this->appendOutput("Making scripts executable...\n\n");
-            $this->appendOutput("Changing permissions for both scripts...\n\n");
-
-            // Execute chmod commands first
-            $ssh->exec("chmod +x {$scriptPath1}");
-            $ssh->exec("chmod +x {$scriptPath2}");
-            $ssh->exec("chmod +x {$scriptPath3}");
-            $this->appendOutput("Permissions changed successfully!\n\n");
-
-            $this->appendOutput("=== Starting VPN Setup Script ===\n\n");
-
-            // Execute first script with nohup and redirect output
-            $command1 = "nohup bash {$scriptPath1} 2>&1";
-            $ssh->exec($command1, function ($str) {
-                $this->appendOutput($str);
-                usleep(50000); // Small delay to prevent overwhelming the connection
-            });
-
-            $this->appendOutput("\n=== VPN Setup Script Completed ===\n\n");
-            $this->appendOutput("Starting VPN API Setup...\n\n");
-
-            // Execute second script with nohup and redirect output
-            $command2 = "nohup bash {$scriptPath2} 2>&1";
-            $ssh->exec($command2, function ($str) {
-                $this->appendOutput($str);
-                usleep(50000); // Small delay to prevent overwhelming the connection
-            });
-
-            $this->appendOutput("\n=== VPN Wireguard API Script Completed ===\n\n");
-            $this->appendOutput("Starting VPN API Setup...\n\n");
-
-            // Execute second script with nohup and redirect output
-            $command2 = "nohup bash {$scriptPath3} 2>&1";
-            $ssh->exec($command2, function ($str) {
-                $this->appendOutput($str);
-                usleep(100000); // Small delay to prevent overwhelming the connection
-            });
-
-            $this->appendOutput("\n=== VPN Setup Completed ===\n\n");
-
-            // Cleanup
-            $ssh->exec("rm -f {$scriptPath1} {$scriptPath2} {$scriptPath3}");
-            $this->appendOutput("Cleanup completed - temporary files removed\n\n");
-
-            $ssh->disconnect();
-            $this->appendOutput("Script execution completed successfully!\n");
-
-            $this->dispatch('sweetToast', type: 'success', message: "VPN setup completed successfully!");
-        } catch (\Exception $e) {
-            $this->appendOutput("\nERROR: " . $e->getMessage() . "\n");
-            $this->dispatch('sweetToast', type: 'error', message: $e->getMessage());
-            Log::channel('ssh')->error("Error executing script on {$this->server->ip_address}:", [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-            ]);
+        if (empty($script) || empty($script2) || empty($script3)) {
+            throw new \Exception("Script content is empty or not found.");
         }
+
+        // Unique filenames
+        $scriptPath1 = "/tmp/vpn_setup_" . substr(md5(uniqid()), 0, 10) . ".sh";
+        $scriptPath2 = "/tmp/vpn_open_setup_" . substr(md5(uniqid()), 0, 10) . ".sh";
+        $scriptPath3 = "/tmp/vpn_setup_wireguard_" . substr(md5(uniqid()), 0, 10) . ".sh";
+
+        // Upload scripts via SFTP
+        $this->appendOutput("Executing script on server {$this->server->ip_address}...\n\n");
+        $sftp = $this->connectToSftp();
+        $this->appendOutput("Connected successfully via SFTP!\n\nUploading scripts...\n\n");
+
+        if (!$sftp->put($scriptPath1, $script)) throw new \Exception("Failed to upload script 1.");
+        if (!$sftp->put($scriptPath2, $script2)) throw new \Exception("Failed to upload script 2.");
+        if (!$sftp->put($scriptPath3, $script3)) throw new \Exception("Failed to upload script 3.");
+
+        $sftp->chmod(0755, $scriptPath1);
+        $sftp->chmod(0755, $scriptPath2);
+        $sftp->chmod(0755, $scriptPath3);
+        $sftp->disconnect();
+        $this->appendOutput("Scripts uploaded and permissions set.\n\n");
+
+        // Run each script with fresh SSH connection
+        $this->runRemoteScript($scriptPath1, "VPN Setup Script");
+        $this->runRemoteScript($scriptPath2, "VPN API Setup Script");
+        $this->runRemoteScript($scriptPath3, "WireGuard Setup Script");
+
+        // Final cleanup with new SSH connection
+        $ssh = $this->connectToServer();
+        $ssh->exec("rm -f {$scriptPath1} {$scriptPath2} {$scriptPath3}");
+        $ssh->disconnect();
+        $this->appendOutput("Temporary files removed. VPN setup completed successfully!\n");
+
+        $this->dispatch('sweetToast', type: 'success', message: "VPN setup completed successfully!");
+    } catch (\Exception $e) {
+        $this->appendOutput("\nERROR: " . $e->getMessage() . "\n");
+        $this->dispatch('sweetToast', type: 'error', message: $e->getMessage());
+        Log::channel('ssh')->error("Error executing script on {$this->server->ip_address}:", [
+            'error' => $e->getMessage(),
+            'trace' => $e->getTraceAsString(),
+        ]);
     }
+}
+   private function runRemoteScript($path, $label)
+{
+    $this->appendOutput("\n=== Starting {$label} ===\n\n");
+
+    $ssh = $this->connectToServer();
+    if (!$ssh) throw new \Exception("SSH connection failed for {$label}.");
+
+    $ssh->exec("chmod +x {$path}");
+
+    $command = "nohup bash {$path} 2>&1";
+    $ssh->exec($command, function ($str) {
+        $this->appendOutput($str);
+        usleep(5000); // Adjustable based on output volume
+    });
+
+    $ssh->disconnect();
+    $this->appendOutput("\n=== {$label} Completed ===\n\n");
+}
+
 
     public function render()
     {
