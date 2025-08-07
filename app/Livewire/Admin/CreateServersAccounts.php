@@ -84,7 +84,6 @@ class CreateServersAccounts extends Component
                 }
                 return;
             }
-            dd($response);
 
             if ($response->status() === 200) {
                 $this->createAccountRecord();

@@ -41,7 +41,7 @@ class CheckServerAccount extends Component
             return;
         }
 
-        try{
+        try {
             $response = Http::withHeaders([
                 'X-API-Token' => $apiToken,
             ])->get($url);

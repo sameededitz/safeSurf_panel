@@ -31,7 +31,7 @@ class CreateAdmin extends Component
 
     public function mount()
     {
-        $this->role = request()->routeIs('admin.add') ? 'admin' : 'user'; // Default to 'user' if not admin add page
+        $this->role = request()->routeIs('admin.create.admin.account') ? 'admin' : 'user'; // Default to 'user' if not admin add page
     }
 
     public function store()
@@ -47,7 +47,7 @@ class CreateAdmin extends Component
         $this->reset('name', 'email', 'password', 'password_confirmation', 'role');
 
         $this->dispatch('snackbar', message: 'User added successfully!', type: 'success');
-            return redirect()->route('admin.accounts');
+        return redirect()->route('admin.accounts');
     }
 
     public function render()
