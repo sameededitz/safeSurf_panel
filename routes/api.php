@@ -58,4 +58,6 @@ Route::get('/vps-servers', [ResourceController::class, 'vpsServers']);
 
 Route::get('notifications', [ResourceController::class, 'notifications']);
 
+Route::get('/options/{key}', [ResourceController::class, 'options']);
+
 Route::get('/plans', [ResourceController::class, 'plans']);

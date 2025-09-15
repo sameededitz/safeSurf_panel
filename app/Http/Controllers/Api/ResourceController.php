@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Plan;
+use App\Models\Option;
 use App\Models\Server;
 use App\Models\VpsServer;
+use App\Models\Notification;
 use App\Models\UserFeedback;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,7 +14,6 @@ use App\Http\Resources\PlanResource;
 use Illuminate\Support\Facades\Http;
 use App\Http\Resources\ServerResource;
 use App\Http\Resources\VpsServerResource;
-use App\Models\Notification;
 use Illuminate\Support\Facades\Validator;
 
 class ResourceController extends Controller
@@ -67,7 +68,28 @@ class ResourceController extends Controller
         ]);
     }
 
-     public function addFeedback(Request $request)
+    public function options(string $key)
+    {
+        $validator = Validator::make(['key' => $key], [
+            'key' => 'required|string|in:tos,privacy_policy',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => $validator->errors()->all()
+            ], 400);
+        }
+
+        $value = Option::where('key', $key)->first()->value ?? '';
+
+        return response()->json([
+            'status' => true,
+            $key => $value,
+        ]);
+    }
+
+    public function addFeedback(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'subject' => 'required|string|max:255',
