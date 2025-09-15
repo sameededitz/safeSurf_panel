@@ -12,6 +12,7 @@ use App\Http\Resources\PlanResource;
 use Illuminate\Support\Facades\Http;
 use App\Http\Resources\ServerResource;
 use App\Http\Resources\VpsServerResource;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Validator;
 
 class ResourceController extends Controller
@@ -54,6 +55,15 @@ class ResourceController extends Controller
         return response()->json([
             'status' => true,
             'plans' => PlanResource::collection($plans),
+        ]);
+    }
+
+    public function notifications()
+    {
+        $notifications = Notification::latest()->get();
+        return response()->json([
+            'status' => true,
+            'notifications' => $notifications,
         ]);
     }
 

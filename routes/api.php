@@ -56,4 +56,6 @@ Route::middleware(['auth:sanctum', 'authorized', 'touch', 'role:user'])->group(f
 });
 Route::get('/vps-servers', [ResourceController::class, 'vpsServers']);
 
+Route::get('notifications', [ResourceController::class, 'notifications']);
+
 Route::get('/plans', [ResourceController::class, 'plans']);
