@@ -51,6 +51,7 @@
                         <th data-priority="1">#</th>
                         <th data-priority="1">Title</th>
                         <th data-priority="3">Body</th>
+                        <th data-priority="2">Type</th>
                         <th data-priority="4">Created at</th>
                         <th data-priority="5">Actions</th>
                     </tr>
@@ -61,6 +62,7 @@
                             <td>{{ $notification->id }}</td>
                             <td>{{ $notification->title }}</td>
                             <td>{{ Str::limit($notification->message, 50) }}</td>
+                            <td>{{ $notification->type }}</td>
                             <td>{{ $notification->created_at->toFormattedDateString() }}</td>
                             <td>
                                 <div class="d-flex align-items-center">

@@ -10,7 +10,8 @@
                         <div class="btn-group float-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.notifications') }}">Notification</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.notifications') }}">Notification</a>
+                                </li>
                                 <li class="breadcrumb-item active">Create Notification</li>
                             </ol>
                         </div>
@@ -48,8 +49,16 @@
                                             id="example-text-input" wire:model='message'>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-sm-2 col-form-label">Type</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="text" placeholder="Enter the Type"
+                                            id="example-text-input" wire:model='type'>
+                                    </div>
+                                </div>
                                 <div class="d-flex justify-content-end mb-2">
-                                    <button type="submit" class="btn btn-light waves-effect">Create Notification</button>
+                                    <button type="submit" class="btn btn-light waves-effect">Create
+                                        Notification</button>
                                 </div>
                             </div>
                         </div>
@@ -73,5 +82,3 @@
         });
     </script>
 @endscript
-
-

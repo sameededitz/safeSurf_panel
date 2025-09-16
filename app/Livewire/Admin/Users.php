@@ -16,10 +16,6 @@ class Users extends Component
     #[Url]
     public ?string $emailVerified = null;
     #[Url]
-    public ?string $lastLoginStart = null;
-    #[Url]
-    public ?string $lastLoginEnd = null;
-    #[Url]
     public ?string $registeredStart = null;
     #[Url]
     public ?string $registeredEnd = null;
@@ -36,16 +32,10 @@ class Users extends Component
     {
         $this->reset([
             'emailVerified',
-            'lastLoginStart',
-            'lastLoginEnd',
             'registeredStart',
             'registeredEnd',
         ]);
     }
-
-
-    
-
     public string $sortField = 'created_at';
     public string $sortDirection = 'desc';
     protected $queryString = ['search', 'sortField', 'sortDirection'];
@@ -93,10 +83,7 @@ class Users extends Component
         ->when($this->registeredStart && $this->registeredEnd, function ($query) {
             $query->whereBetween('created_at', [$this->registeredStart, $this->registeredEnd]);
         })
-        ->when($this->lastLoginStart && $this->lastLoginEnd, function ($query) {
-            $query->whereBetween('last_login', [$this->lastLoginStart, $this->lastLoginEnd]);
-        })
-        ->where('role', '!=', 'admin')
+        ->where('role','user')
         ->orderBy('created_at', 'desc')
         ->paginate($this->perPage);
           /** @disregard @phpstan-ignore-line */

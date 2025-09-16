@@ -10,12 +10,13 @@ class EditNotification extends Component
     public Notification $notification;
     public $title;
     public $message;
-    public $isEdit = false;
+    public $type;
     protected function rules()
     {
         return [
             'title' => 'required|string|max:255',
             'message' => 'required|string|max:1000',
+            'type' => 'required|string|max:50'
         ];
     }
     public function mount(Notification $notification)
@@ -31,10 +32,13 @@ class EditNotification extends Component
         $this->notification->update([
             'title' => $this->title,
             'message' => $this->message,
+            'type' => $this->type
         ]);
 
-        $this->dispatch('snackbar', message: 'Notification updated successfully.', type: 'success');
-        $this->dispatch('redirect', url: route('admin.notifications'));
+        return redirect()->route('admin.notifications')->with([
+            'message' => 'Notification updated successfully.',
+            'type' => 'success'
+        ]);
     }
     public function render()
     {

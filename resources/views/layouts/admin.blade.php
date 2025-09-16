@@ -35,6 +35,9 @@
     <!--end wrapper-->
 
     @include('partials.scripts')
+    
+    <!-- Sweet Toast Notifications -->
+    <x-sweet-toast />
 </body>
 
 </html>

@@ -1,38 +1,40 @@
 <div class="row">
-    <div class="col-8">
+    <div class="col-12 col-md-8">
         <div class="card">
             <div class="card-header d-flex align-items-center justify-content-between">
                 <h3 class="card-title mb-0">Recent Users</h3>
             </div>
             <div class="card-body">
-                <table class="table table-responsive">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Joined</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($recentUsers as $user)
+                <div class="table table-responsive mb-0">
+                    <table class="table table-hover mb-0">
+                        <thead>
                             <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->created_at->toFormattedDateString() }}</td>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Joined</th>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="8" class="text-center">No users found</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @forelse ($recentUsers as $user)
+                                <tr>
+                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->created_at->toFormattedDateString() }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="text-center">No users found</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-4 d-flex">
+    <div class="col-12 col-md-4">
         <div class="card radius-10 w-100">
             <div class="card-body">
                 <p class="font-weight-bold mb-1">New Visitors</p>

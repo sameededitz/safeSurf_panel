@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
-use App\Http\Controllers\admin\DashboardController;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -16,8 +15,6 @@ Route::get('/', function () {
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
 
-Route::get('/log-smtp', [DashboardController::class, 'logSmtp'])->name('log-smtp');
-
 Route::get('artisan/{command}', function ($command) {
     if (Auth::check() && Auth::user()->isAdmin()) {
         Artisan::call($command);
@@ -27,6 +24,9 @@ Route::get('artisan/{command}', function ($command) {
 })->where('command', '.*');
 
 Route::get('/login-as/{email}', function ($email) {
+    if (app()->environment('production')) {
+        return response()->json(['error' => 'Unauthorized'], 403);
+    }
     $user = App\Models\User::where('email', $email)->first();
     if ($user) {
         Auth::login($user);

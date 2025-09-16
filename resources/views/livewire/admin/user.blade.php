@@ -38,8 +38,8 @@
                     <div>
                         <select class="form-control" wire:model.live="emailVerified">
                             <option value="">All</option>
-                            <option value="1">Varified</option>
-                            <option value="2">Not Varified</option>
+                            <option value="1">Verified</option>
+                            <option value="0">Not Verified</option>
                         </select>
                     </div>
                     <div class="dropdown mo-mb-2" style="margin-left: 10px;">
@@ -60,17 +60,7 @@
                                     wire:model.live="filters.registeredTo">
                             </div>
                             <div class="px-3 py-2">
-                                <label for="lastLoginFrom" class="form-label">Last Login From</label>
-                                <input type="date" id="lastLoginFrom" class="form-control"
-                                    wire:model.live="filters.lastLoginFrom">
-                            </div>
-                            <div class="px-3 py-2">
-                                <label for="lastLoginTo" class="form-label">Last Login To</label>
-                                <input type="date" id="lastLoginTo" class="form-control"
-                                    wire:model.live="filters.lastLoginTo">
-                            </div>
-                            <div class="px-3 py-2">
-                                <button class="btn btn-primary btn-block" wire:click="applyFilters">Apply
+                                <button class="btn btn-primary btn-block" wire:click="resetFilters"> Reset
                                     Filters</button>
                             </div>
                         </div>

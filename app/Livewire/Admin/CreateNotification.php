@@ -7,16 +7,15 @@ use Livewire\Component;
 
 class CreateNotification extends Component
 {
-    public $notificationId;
     public $title;
     public $message;
-    public $isEdit = false;
-
+    public $type;
     protected function rules()
     {
         return [
             'title' => 'required|string|max:255',
             'message' => 'required|string|max:1000',
+            'type' => 'required|string|max:255',
         ];
     }
 
@@ -25,38 +24,20 @@ class CreateNotification extends Component
     {
         $this->validate();
 
-        if ($this->isEdit) {
-            $notification = Notification::findOrFail($this->notificationId);
-            $notification->update([
-                'title' => $this->title,
-                'message' => $this->message,
-            ]);
-            $message = 'Notification updated successfully.';
-        } else {
-            Notification::create([
-                'title' => $this->title,
-                'message' => $this->message,
-            ]);
-            $message = 'Notification created successfully.';
-        }
-
-        $this->dispatch('snackbar', message: 'Plan added successfully!', type: 'success');
-        $this->dispatch('redirect', url: route('admin.notifications'));
-    }
-    public function resetForm()
-    {
-        $this->reset([
-            'notificationId',
-            'title',
-            'message',
+        Notification::create([
+            'title' => $this->title,
+            'message' => $this->message,
+            'type' => $this->type,
         ]);
-        $this->isEdit = false;
-        $this->resetValidation();
+
+        return redirect()->route('admin.notifications')->with([
+            'type' => 'success',
+            'message' => 'Notification created successfully!',
+        ]);
     }
     public function render()
     {
         /** @disregard @phpstan-ignore-line */
-
         return view('livewire.admin.create-notification')
             ->extends('layouts.admin')
             ->section('content');
